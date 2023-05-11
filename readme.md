@@ -29,3 +29,6 @@ Relationships allows to establish, a certain set of dependency on one or more co
 
 **Config Examples**
 Config examples can be find in the examples/config folder
+
+### Getting Started
+**Step 1**
