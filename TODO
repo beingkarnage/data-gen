@@ -1,0 +1,22 @@
+1. "operation": "insertIfEmpty"
+    "filter": {
+        "lhs" : ["customerType"],
+        "rhs" : ["Individuals"],
+        "operation" : ["=="],
+        "boolean" : []
+    }
+
+    both of them having same operation but different meaning and purpose fix that,(0/100)
+
+2. the filter obj, could be confusing, convert it to sql query, try duckDB
+    -- try using "in" when to check for one to with multiple values
+3. replace if-else with neccesary try catches, (0/100)
+4. add more strategies (0/100)
+5. add more complex relation support ? (0/100)
+6. maybe if possible think about pre data clean up ? (0/100)
+7. explore data generation via, ML libraries.(0/100)
+8. add ignore case, while comparing static strings ⬆️(0/100)
+9. add deletion, strategies (0/100)
+10. Out of memory issue, for e.g. multiplying large values in strategy, relations 
+11. Mapping strategy/relation to map one columns to another(0/100)
+12. Modularize the script, supply functions defination via, external config (50/100)

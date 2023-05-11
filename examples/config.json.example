@@ -1,0 +1,162 @@
+{
+  "columnName": [
+    "Colors",
+    "Color Details",
+    "Secret Msg"
+  ],
+  "fileReader": [
+    {
+      "fileName": "",
+      "sheetName": "",
+      "rowSkip": 0
+    }
+  ],
+  "fileWriter": [
+    {
+      "type" : "json",
+      "params" : {
+        "index" :"False",
+        "orient" : "records",
+        "path_or_buf": "zzz.json"
+      }
+    }
+  ],
+  "numOfRows": 100,
+  "fileName": "",
+  "sheetName": "",
+  "configs": [
+    {
+      "names": [
+        "Colors"
+      ],
+      "format": "String",
+      "strategy": {
+        "isUnique": "False",
+        "name": "distributed",
+        "params": {
+          "choices": {
+            "Red": 40,
+            "Green": 10,
+            "Blue": 20,
+            "Black": 20,
+            "White": 5,
+            "Gray": 5
+          }
+        }
+      },
+      "operation": "insert"
+    },
+    {
+      "names": [
+        "Color Details"
+      ],
+      "format": "String",
+      "relationType": [
+        {
+          "filter": {
+            "lhs": [
+              "Colors",
+              "Colors"
+            ],
+            "rhs": [
+              "Black",
+              "White"
+            ],
+            "operation": [
+              "==",
+              "=="
+            ],
+            "boolean": [
+              "|"
+            ]
+          },
+          "strategy": {
+            "isUnique": "False",
+            "name": "distributedNumberRange",
+            "params": {
+              "ranges": [
+                {
+                  "lowerbound": 100,
+                  "upperbound": 80,
+                  "distribution": 50
+                },
+                {
+                  "upperbound": 20,
+                  "lowerbound": 0,
+                  "distribution": 50
+                }
+              ]
+            }
+          },
+          "operation": "insertIfEmpty"
+        },
+        {
+          "filter": {
+            "lhs": [
+              "Colors"
+            ],
+            "rhs": [
+              "Red"
+            ],
+            "operation": [
+              "!="
+            ],
+            "boolean": []
+          },
+          "strategy": {
+            "isUnique": "False",
+            "name": "distributed",
+            "params": {
+              "choices": {
+                "This is not red color": 100
+              }
+            }
+          },
+          "operation": "insertIfEmpty"
+        }
+      ]
+    },
+    {
+      "names": [
+        "Secret Msg"
+      ],
+      "format": "String",
+      "relationType": [
+        {
+          "filter": {
+            "lhs": [
+              "Colors",
+              "Colors",
+              "Colors",
+              "Colors",
+              "Colors",
+              "Colors",
+              "Colors"
+            ],
+            "rhs": [
+              "Yellow",
+              "Red",
+              "Green",
+              "Blue",
+              "Black",
+              "White",
+              "Gray"
+            ],
+            "operation": [
+              "==","==","==","==","==","==","=="
+            ],
+            "boolean": ["|","|","|","|","|","|"]
+          },
+          "strategy": {
+            "isUnique": "True",
+            "name": "regex",
+            "params": {
+              "regex": "[A-Za-z0-9]{10}"
+            }
+          },
+          "operation": "insertIfEmpty"
+        }
+      ]
+    }
+  ]
+}
