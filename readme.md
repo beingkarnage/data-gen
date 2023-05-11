@@ -32,3 +32,4 @@ Config examples can be find in the examples/config folder
 
 ### Getting Started
 **Step 1**
+**Step 2**
