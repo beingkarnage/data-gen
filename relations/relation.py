@@ -1,7 +1,9 @@
-from strategies.number_range import numberRangeStrategy
 from strategies.distributed import distributedStrategy2
+from strategies.distribution_range import distributedNumberRange
+from strategies.number_range import numberRangeStrategy
 from strategies.regex import regexStrategy
 from strategies.random_name import randomNameStrategy
+from strategies.time_range import timeRangeStrategy
 
 def relationType(relation, df, colName,rows, operation):
     filter_dict = relation['filter']
@@ -29,4 +31,10 @@ def relationType(relation, df, colName,rows, operation):
                            , df, colName, operation, rows, mask)
     elif relation['strategy']['name'] == 'randomName':
         df = randomNameStrategy(df,colName, rows, operation, mask)
+    elif relation['strategy']['name'] == 'distributedNumberRange':
+        df = distributedNumberRange(relation['strategy']['params'],df,colName, rows,
+                                 operation,mask)
+    elif relation['strategy']['name'] == 'timeRange':
+        df = timeRangeStrategy(relation['strategy']['params'],df,
+                        colName, rows,operation,mask)
     return df
