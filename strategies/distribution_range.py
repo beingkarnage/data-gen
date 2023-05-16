@@ -1,3 +1,4 @@
+import numpy as np
 from utils.get_numbers import getNumbers
 def distributedNumberRange(params, df, colName, rows, operation, mask=True):
     null_mask = mask & df[colName].isnull()
@@ -17,10 +18,15 @@ def distributedNumberRange(params, df, colName, rows, operation, mask=True):
     elif operation == "insertIfEmpty":
         size = null_mask.sum() 
     for r in ranges:
+        print(">>>> size {}".format(size*r[2]/100))
         x = getNumbers(r[0],r[1], int(size*r[2]/100))
         generated.extend(x)
 
     np.random.shuffle(generated)
-    df[colName] = generated
-    print(generated)
+    if operation == "insert":
+        df[colName] = generated
+    elif operation == "insertIfEmpty":
+        while(len(generated)!=null_mask.sum()):
+            generated.append(generated[-1]) 
+        df.loc[null_mask, colName] = generated
     return df
