@@ -1,5 +1,5 @@
-from strategies.distributed import distributedStrategy2
-from strategies.distribution_range import distributedNumberRange
+from strategies.distributed import distributedStrategy
+from strategies.distributed_number_range import distributedNumberRange
 from strategies.number_range import numberRangeStrategy
 from strategies.regex import regexStrategy
 from strategies.random_name import randomNameStrategy
@@ -23,7 +23,7 @@ def relationType(relation, df, colName,rows, operation):
         df = numberRangeStrategy(relation['strategy']['params'], df, colName,rows, operation, mask)
     elif relation['strategy']['name'] == 'distributed':
         print("Running distributed for {}".format(colName))
-        df = distributedStrategy2(relation['strategy']['params'], df,
+        df = distributedStrategy(relation['strategy']['params'], df,
                                    colName, rows,
                                    operation, mask)
     elif relation['strategy']['name'] == 'regex':

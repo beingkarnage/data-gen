@@ -5,10 +5,10 @@ import sys
 from utils.file_readers import jsonReader, readExcel, readJson
 from strategies.number_range import numberRangeStrategy
 from strategies.number_range import numberRangeStrategy
-from strategies.distributed import distributedStrategy2
+from strategies.distributed import distributedStrategy
 from strategies.regex import regexStrategy
 from strategies.random_name import randomNameStrategy
-from strategies.distribution_range import distributedNumberRange
+from strategies.distributed_number_range import distributedNumberRange
 from relations.relation import relationType
 from strategies.time_range import timeRangeStrategy
 
@@ -44,7 +44,7 @@ def start():
                             rows)
 
                 elif curConfig['strategy']['name'] == "distributed":
-                    df = distributedStrategy2(
+                    df = distributedStrategy(
                         curConfig['strategy']['params'],
                         df,
                         colName,rows,curConfig['operation'],True)
