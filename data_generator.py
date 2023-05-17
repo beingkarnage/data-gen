@@ -21,17 +21,16 @@ def start():
     fileWriter = configFile['fileWriter']
     rows = configFile['numOfRows']
     configs = configFile['configs']
-    
-    files = {}
-    for i in fileReader:
-        if i['fileName'].endswith("xlsx"):
-            files[i['sheetName']] = readExcel(i['fileName'],i['sheetName'],i['rowSkip'])
-        elif i['fileName'].endswith("csv"):
-            print("Implement csv file reader")
-        else :
-            print("WARNING : Unsupported file format used, creating empty dataframe")
-            df = pd.DataFrame(columns = columnName)
-    
+    df = None
+
+    if fileReader[0]['fileName'].endswith("xlsx"):
+        df = readExcel(fileReader[0]['fileName'],fileReader[0]['sheetName'],fileReader[0]['rowSkip'])
+    elif fileReader[0]['fileName'].endswith("csv"):
+        print("Implement csv file reader")
+    else :
+        print("WARNING : Unsupported file format used, creating empty dataframe")
+        df = pd.DataFrame(columns = columnName)
+
     for curConfig in configs:
         for colName in curConfig['names']:
             if "strategy" in curConfig.keys() and len(curConfig['strategy'])!=0:
@@ -80,18 +79,18 @@ def start():
                     df = relationType(i,df,colName,rows, i['operation'])
             else :
                 print('Neither a strategy, nor a relationship is found, for {}'.format(curConfig))
-
-    for i in fileWriter:
-        if i['type'].endswith("xlsx"):
-            excelWriter(df, i['params'])
-        elif i['type'].endswith("csv"):
-            csvWriter(df, i['params'])
-        elif i['type'].endswith("json"):
-            jsonWriter(df, i['params'])
-        elif i['type'].endswith("parquet"):
-            parquetWriter(df, i['params'])
-        elif i['type'].endswith("sql"):
-            sqlWriter(df, i['params'])
+    if len(configs) !=0:
+        for i in fileWriter:
+            if i['type'].endswith("xlsx"):
+                excelWriter(df, i['params'])
+            elif i['type'].endswith("csv"):
+                csvWriter(df, i['params'])
+            elif i['type'].endswith("json"):
+                jsonWriter(df, i['params'])
+            elif i['type'].endswith("parquet"):
+                parquetWriter(df, i['params'])
+            elif i['type'].endswith("sql"):
+                sqlWriter(df, i['params'])
 
 if __name__ == '__main__':
     start()
