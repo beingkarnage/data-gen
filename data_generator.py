@@ -22,10 +22,10 @@ def start():
     rows = configFile['numOfRows']
     configs = configFile['configs']
     df = None
-
-    if fileReader[0]['fileName'].endswith("xlsx"):
-        df = readExcel(fileReader[0]['fileName'],fileReader[0]['sheetName'],fileReader[0]['rowSkip'])
-    elif fileReader[0]['fileName'].endswith("csv"):
+    
+    if fileReader['fileName'].endswith("xlsx"):
+        df = readExcel(fileReader['fileName'],fileReader['sheetName'],fileReader['rowSkip'])
+    elif fileReader['fileName'].endswith("csv"):
         print("Implement csv file reader")
     else :
         print("WARNING : Unsupported file format used, creating empty dataframe")
