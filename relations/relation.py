@@ -4,6 +4,7 @@ from strategies.number_range import numberRangeStrategy
 from strategies.regex import regexStrategy
 from strategies.random_name import randomNameStrategy
 from strategies.time_range import timeRangeStrategy
+from strategies.delete import deletionStrategy
 
 def relationType(relation, df, colName,rows, operation):
     filter_dict = relation['filter']
@@ -37,4 +38,7 @@ def relationType(relation, df, colName,rows, operation):
     elif relation['strategy']['name'] == 'timeRange':
         df = timeRangeStrategy(relation['strategy']['params'],df,
                         colName, rows,operation,mask)
+    elif relation['strategy']['name'] == 'delete':
+        print("running delete")
+        df = deletionStrategy(df, colName,rows,operation,mask)
     return df
