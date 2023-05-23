@@ -1,12 +1,14 @@
-1. "operation": "insertIfEmpty"
-    "filter": {
-        "lhs" : ["customerType"],
-        "rhs" : ["Individuals"],
-        "operation" : ["=="],
-        "boolean" : []
-    }
+1. tweak config params
+    a. "operation": "insertIfEmpty"
+        "filter": {
+            "lhs" : ["customerType"],
+            "rhs" : ["Individuals"],
+            "operation" : ["=="],
+            "boolean" : []
+        }
 
-    both of them having same operation but different meaning and purpose fix that,(0/100)
+        both of them having same operation but different meaning and purpose fix that,(0/100)
+    b. add shuffle/ random flag in config.
 
 2. the filter obj, could be confusing, convert it to sql query, try duckDB
     -- try using "in" when to check for one to with multiple values
@@ -14,6 +16,7 @@
 4. add more strategies (1/100)
     deletion strategy
     replacement strategy
+    series/range strategy
 5. add more complex relation support ? (0/100)
 6. maybe if possible think about pre data clean up ? (0/100)
 7. explore data generation via, ML libraries.(0/100)
