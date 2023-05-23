@@ -11,6 +11,7 @@ from strategies.random_name import randomNameStrategy
 from strategies.distributed_number_range import distributedNumberRange
 from relations.relation import relationType
 from strategies.time_range import timeRangeStrategy
+from strategies.date_gen import dateGeneratorStrategy
 
 from utils.file_writers import excelWriter, jsonWriter, csvWriter, parquetWriter, sqlWriter
 
@@ -69,6 +70,13 @@ def start():
 
                 elif curConfig['strategy']['name'] == "distributedNumberRange":
                     df = distributedNumberRange(
+                        curConfig['strategy']['params'],
+                        df,
+                        colName,rows,
+                        curConfig['operation']
+                    )
+                elif curConfig['strategy']['name'] == "date":
+                    df = dateGeneratorStrategy(
                         curConfig['strategy']['params'],
                         df,
                         colName,rows,
