@@ -1,0 +1,10 @@
+{
+    "DATE_GENERATOR_STRATEGY" : "strategies/date_gen.py",
+    "DELETE_STRATEGY" : "strategies/delete.py",
+    "DISTRBUTED_NUMBERS_STRATEGY" : "strategies/distributed_number_range.py",
+    "DISTRBUTED_CHOICES_STRATEGY" : "strategies/distributed.py",
+    "RANDOM_NUMBER_STRATEGY" : "strategies/number_rangee.py",
+    "RANDOM_NAME_STRATEGY" : "strategies/random_name.py",
+    "REGEX_STRATEGY" : "regex-strategy/regex.py",
+    "TIME_RANGE_STRATEGY" : "strategies/time_range.py"
+}

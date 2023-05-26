@@ -2,6 +2,8 @@ import pandas as pd
 import random as rd
 import json
 import sys
+import importlib.util
+
 from utils.file_readers import jsonReader, readExcel, readJson
 from strategies.number_range import numberRangeStrategy
 from strategies.number_range import numberRangeStrategy
@@ -14,6 +16,13 @@ from strategies.time_range import timeRangeStrategy
 from strategies.date_gen import dateGeneratorStrategy
 
 from utils.file_writers import excelWriter, jsonWriter, csvWriter, parquetWriter, sqlWriter
+
+def load_strategy_module(module_path):
+    print(module_path)
+    spec = importlib.util.spec_from_file_location(name="strategy_module" ,location= module_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 def start():
     configFile = readJson(sys.argv[1])
@@ -31,62 +40,21 @@ def start():
     else :
         print("WARNING : Unsupported file format used, creating empty dataframe")
         df = pd.DataFrame(columns = columnName)
-
+    STRATEGIES = readJson("examples/STRATEGIES.json")
+    LOGICAL_MAPPING = readJson("examples/LOGICAL_MAPPING.json")
     for curConfig in configs:
         for colName in curConfig['names']:
-            if "strategy" in curConfig.keys() and len(curConfig['strategy'])!=0:
-                if curConfig['strategy']['name'] == "regex":
-                    df = regexStrategy(
-                            curConfig['strategy']['params'],
-                            curConfig['strategy']['isUnique'],
-                            df,colName,
-                            curConfig["operation"],
-                            rows)
+            if 'strategy' in curConfig.keys() and len(curConfig['strategy']) != 0:
+                strategy_module_path = STRATEGIES[curConfig['strategy']['name']]
+                strategy_module = load_strategy_module(strategy_module_path)
+                strategy_function = getattr(strategy_module, LOGICAL_MAPPING[curConfig['strategy']['name']])
+                df = strategy_function(curConfig['strategy']['params'], df, colName, rows, curConfig['operation'])
+            elif 'relationType' in curConfig.keys() and len(curConfig['relationType']) != 0:
+                for i in curConfig['relationType']:
+                    df = relationType(i, df, colName, rows, i['operation'])
+            else:
+                print('Neither a strategy nor a relationship is found for {}'.format(curConfig))
 
-                elif curConfig['strategy']['name'] == "distributed":
-                    df = distributedStrategy(
-                        curConfig['strategy']['params'],
-                        df,
-                        colName,rows,curConfig['operation'],True)
-
-                elif curConfig['strategy']['name'] == "numberRange":
-                    df = numberRangeStrategy(
-                        curConfig['strategy']['params'],
-                        df,
-                        colName, rows,
-                        curConfig['operation']
-                    )
-
-                elif curConfig['strategy']['name'] == "timeRange":
-                    df = timeRangeStrategy(
-                        curConfig['strategy']['params'],
-                        df,
-                        colName, rows,
-                        curConfig['operation']
-                    )
-
-                elif curConfig['strategy']['name'] == "randomNameGenerator":
-                    df = randomNameStrategy(df, colName, rows, curConfig['operation'])
-
-                elif curConfig['strategy']['name'] == "distributedNumberRange":
-                    df = distributedNumberRange(
-                        curConfig['strategy']['params'],
-                        df,
-                        colName,rows,
-                        curConfig['operation']
-                    )
-                elif curConfig['strategy']['name'] == "date":
-                    df = dateGeneratorStrategy(
-                        curConfig['strategy']['params'],
-                        df,
-                        colName,rows,
-                        curConfig['operation']
-                    )
-            elif "relationType" in curConfig.keys() and len(curConfig["relationType"])!=0:
-                for i in curConfig["relationType"]:
-                    df = relationType(i,df,colName,rows, i['operation'])
-            else :
-                print('Neither a strategy, nor a relationship is found, for {}'.format(curConfig))
     if len(configs) !=0:
         for i in fileWriter:
             if i['type'].endswith("xlsx"):
