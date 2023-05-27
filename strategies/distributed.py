@@ -1,6 +1,5 @@
 import numpy as np
 def distributedStrategy(params, df, colName, rows, operation, mask=True):
-    df[colName] = df[colName].replace('#VALUE!',np.nan) # only required in excel
     null_mask = mask & df[colName].isnull()
     if sum(params['choices'].values())==100:
         choicesWithDist = {}

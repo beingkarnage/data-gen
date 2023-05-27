@@ -1,28 +1,9 @@
 import pandas as pd
 import random as rd
-import json
 import sys
 
-
-from utils.file_readers import jsonReader, readExcel, readJson
-from strategies.number_range import numberRangeStrategy
-from strategies.number_range import numberRangeStrategy
-from strategies.distributed import distributedStrategy
-from strategies.regex import regexStrategy
-from strategies.random_name import randomNameStrategy
-from strategies.distributed_number_range import distributedNumberRange
-from relations.relation import relationType
-from strategies.time_range import timeRangeStrategy
-from strategies.date_gen import dateGeneratorStrategy
-
+from utils.file_readers import readExcel, readJson
 from utils.file_writers import excelWriter, jsonWriter, csvWriter, parquetWriter, sqlWriter
-
-def load_strategy_module(module_path):
-    print(module_path)
-    spec = importlib.util.spec_from_file_location(name="strategy_module" ,location= module_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
 
 def start():
     configFile = readJson(sys.argv[1])
