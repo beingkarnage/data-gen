@@ -2,7 +2,7 @@ import pandas as pd
 import random as rd
 import json
 import sys
-import importlib.util
+
 
 from utils.file_readers import jsonReader, readExcel, readJson
 from strategies.number_range import numberRangeStrategy
@@ -35,8 +35,8 @@ def start():
     else :
         print("WARNING : Unsupported file format used, creating empty dataframe")
         df = pd.DataFrame(columns = columnName)
-    STRATEGIES = readJson("examples/STRATEGIES.json")
-    LOGICAL_MAPPING = readJson("examples/LOGICAL_MAPPING.json")
+    STRATEGIES = readJson("configs/STRATEGIES.json")
+    LOGICAL_MAPPING = readJson("configs/LOGICAL_MAPPING.json")
     for curConfig in configs:
         for colName in curConfig['names']:
             if 'strategy' in curConfig.keys() and len(curConfig['strategy']) != 0:
@@ -46,7 +46,7 @@ def start():
                 df = strategy_function(curConfig['strategy']['params'], df, colName, rows, curConfig['operation'])
             elif 'relationType' in curConfig.keys() and len(curConfig['relationType']) != 0:
                 for i in curConfig['relationType']:
-                    df = relationType(i, df, colName, rows, i['operation'])
+                    df = relationType(i, df, colName, rows, STRATEGIES, LOGICAL_MAPPING)
             else:
                 print('Neither a strategy nor a relationship is found for {}'.format(curConfig))
 
