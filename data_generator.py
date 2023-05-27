@@ -16,13 +16,8 @@ from strategies.time_range import timeRangeStrategy
 from strategies.date_gen import dateGeneratorStrategy
 
 from utils.file_writers import excelWriter, jsonWriter, csvWriter, parquetWriter, sqlWriter
+from utils.strategy_module import load_strategy_module
 
-def load_strategy_module(module_path):
-    print(module_path)
-    spec = importlib.util.spec_from_file_location(name="strategy_module" ,location= module_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
 
 def start():
     configFile = readJson(sys.argv[1])
