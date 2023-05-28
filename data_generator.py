@@ -24,7 +24,7 @@ def start():
         print("WARNING : Unsupported file format used, creating empty dataframe")
         df = pd.DataFrame(columns = columnName)
     STRATEGIES = readJson("configs/STRATEGIES.json")
-    LOGICAL_MAPPING = readJson("configs/LOGICAL_MAPPING.json")
+    LOGICAL_MAPPING = readJson("configs/STRATEGIES_MAPPING.json")
     for curConfig in configs:
         for colName in curConfig['names']:
             if 'strategy' in curConfig.keys() and len(curConfig['strategy']) != 0:
