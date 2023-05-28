@@ -24,3 +24,5 @@
 9. Out of memory issue, for e.g. multiplying large values in strategy, relations 
 10. Mapping strategy/relation to map one columns to another(0/100)
 11. Modularize the script, supply functions defination via, external config (95/100)
+12. Code quality:
+    remove "strategies/number_range.py", strategy prefix from all of the STRATEGIES.json, as it is already obvious to look into strategies folder.
