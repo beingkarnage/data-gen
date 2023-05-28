@@ -1,0 +1,5 @@
+{
+    "csv" : "utils/file_writers/csv_writer.py",
+    "excel" : "utils/file_writers/excel_writer.py",
+    "json": "utils/file_writers/json_writer.py"
+}

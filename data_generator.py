@@ -3,7 +3,6 @@ import random as rd
 import sys
 
 from utils.file_readers import readExcel, readJson
-from utils.file_writers import excelWriter, jsonWriter, csvWriter, parquetWriter, sqlWriter
 from utils.strategy_module import load_strategy_module
 
 from relations.relation import relationType
@@ -38,19 +37,14 @@ def start():
                     df = relationType(i, df, colName, rows, STRATEGIES, LOGICAL_MAPPING)
             else:
                 print('Neither a strategy nor a relationship is found for {}'.format(curConfig))
-
+    WRITERS = readJson("configs/WRITERS.json")
+    WRITERS_MAPPING = readJson("configs/WRITERS_MAPPING.json")
     if len(configs) !=0:
         for i in fileWriter:
-            if i['type'].endswith("xlsx"):
-                excelWriter(df, i['params'])
-            elif i['type'].endswith("csv"):
-                csvWriter(df, i['params'])
-            elif i['type'].endswith("json"):
-                jsonWriter(df, i['params'])
-            elif i['type'].endswith("parquet"):
-                parquetWriter(df, i['params'])
-            elif i['type'].endswith("sql"):
-                sqlWriter(df, i['params'])
+            strategy_module_path = WRITERS[i['type']]
+            strategy_module = load_strategy_module(strategy_module_path)
+            strategy_function = getattr(strategy_module, WRITERS_MAPPING[i['type']])
+            strategy_function(df, i['params'])
 
 if __name__ == '__main__':
     start()
