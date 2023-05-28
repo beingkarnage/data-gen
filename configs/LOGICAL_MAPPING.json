@@ -1,9 +1,9 @@
 {   
     "DATE_GENERATOR_STRATEGY" : "dateGeneratorStrategy",
     "DELETE_STRATEGY" : "deletionStrategy",
-    "DISTRBUTED_NUMBERS_STRATEGY" : "distributedNumberRange",
+    "DISTRBUTED_NUMBER_RANGE_STRATEGY" : "distributedNumberRange",
     "DISTRBUTED_CHOICES_STRATEGY" : "distributedStrategy",
-    "RANDOM_NUMBER_STRATEGY" : "numberRangeStrategy",
+    "RANDOM_NUMBER_RANGE_STRATEGY" : "numberRangeStrategy",
     "RANDOM_NAME_STRATEGY" : "randomNameStrategy",
     "REGEX_STRATEGY" : "regexStrategy",
     "TIME_RANGE_STRATEGY" : "timeRangeStrategy"
