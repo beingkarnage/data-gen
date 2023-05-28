@@ -28,3 +28,4 @@
     remove "strategies/number_range.py", strategy prefix from all of the STRATEGIES.json, as it is already obvious to look into strategies folder.
 
 13. Write unit tests.
+14. fix regex strategy, null_mask not used, remove map_to_null
