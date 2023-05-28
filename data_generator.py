@@ -2,7 +2,7 @@ import pandas as pd
 import random as rd
 import sys
 
-from utils.file_readers import readExcel, readJson
+from utils.json_loader import readJson
 from utils.strategy_module import load_strategy_module
 
 from relations.relation import relationType
@@ -10,19 +10,10 @@ from relations.relation import relationType
 def start():
     configFile = readJson(sys.argv[1])
     columnName = configFile['columnName']
-    fileReader = configFile['fileReader']
     fileWriter = configFile['fileWriter']
     rows = configFile['numOfRows']
     configs = configFile['configs']
-    df = None
-    
-    if fileReader['fileName'].endswith("xlsx"):
-        df = readExcel(fileReader['fileName'],fileReader['sheetName'],fileReader['rowSkip'])
-    elif fileReader['fileName'].endswith("csv"):
-        print("Implement csv file reader")
-    else :
-        print("WARNING : Unsupported file format used, creating empty dataframe")
-        df = pd.DataFrame(columns = columnName)
+    df = pd.DataFrame(columns = columnName)
     STRATEGIES = readJson("configs/STRATEGIES.json")
     LOGICAL_MAPPING = readJson("configs/STRATEGIES_MAPPING.json")
     for curConfig in configs:
