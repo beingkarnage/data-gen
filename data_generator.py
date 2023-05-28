@@ -4,6 +4,9 @@ import sys
 
 from utils.file_readers import readExcel, readJson
 from utils.file_writers import excelWriter, jsonWriter, csvWriter, parquetWriter, sqlWriter
+from utils.strategy_module import load_strategy_module
+
+from relations.relation import relationType
 
 def start():
     configFile = readJson(sys.argv[1])
