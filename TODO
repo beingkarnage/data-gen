@@ -26,3 +26,5 @@
 11. Modularize the script, supply functions defination via, external config (95/100)
 12. Code quality:
     remove "strategies/number_range.py", strategy prefix from all of the STRATEGIES.json, as it is already obvious to look into strategies folder.
+
+13. Write unit tests.
