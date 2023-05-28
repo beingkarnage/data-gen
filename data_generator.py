@@ -19,10 +19,9 @@ def start():
     for curConfig in configs:
         for colName in curConfig['names']:
             if 'strategy' in curConfig.keys() and len(curConfig['strategy']) != 0:
-                strategy_module_path = STRATEGIES[curConfig['strategy']['name']]
-                strategy_module = load_strategy_module(strategy_module_path)
-                strategy_function = getattr(strategy_module, LOGICAL_MAPPING[curConfig['strategy']['name']])
-                df = strategy_function(curConfig['strategy']['params'], df, colName, rows, curConfig['operation'])
+                strategy_module = load_strategy_module(STRATEGIES[curConfig['strategy']['name']])
+                strategy = getattr(strategy_module, LOGICAL_MAPPING[curConfig['strategy']['name']])
+                df = strategy(curConfig['strategy']['params'], df, colName, rows, curConfig['operation'])
             elif 'relationType' in curConfig.keys() and len(curConfig['relationType']) != 0:
                 for i in curConfig['relationType']:
                     df = relationType(i, df, colName, rows, STRATEGIES, LOGICAL_MAPPING)
@@ -32,10 +31,9 @@ def start():
     WRITERS_MAPPING = readJson("configs/WRITERS_MAPPING.json")
     if len(configs) !=0:
         for i in fileWriter:
-            strategy_module_path = WRITERS[i['type']]
-            strategy_module = load_strategy_module(strategy_module_path)
-            strategy_function = getattr(strategy_module, WRITERS_MAPPING[i['type']])
-            strategy_function(df, i['params'])
+            writer_module = load_strategy_module(WRITERS[i['type']])
+            writer = getattr(writer_module, WRITERS_MAPPING[i['type']])
+            writer(df, i['params'])
 
 if __name__ == '__main__':
     start()
