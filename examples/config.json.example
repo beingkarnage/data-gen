@@ -4,13 +4,6 @@
     "Color Details",
     "Secret Msg"
   ],
-  "fileReader": [
-    {
-      "fileName": "",
-      "sheetName": "",
-      "rowSkip": 0
-    }
-  ],
   "fileWriter": [
     {
       "type" : "json",
