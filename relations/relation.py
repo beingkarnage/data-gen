@@ -1,12 +1,6 @@
-from strategies.distributed import distributedStrategy
-from strategies.distributed_number_range import distributedNumberRange
-from strategies.number_range import numberRangeStrategy
-from strategies.regex import regexStrategy
-from strategies.random_name import randomNameStrategy
-from strategies.time_range import timeRangeStrategy
-from strategies.delete import deletionStrategy
+from utils.strategy_module import load_strategy_module
 
-def relationType(relation, df, colName,rows, operation):
+def relationType(relation, df, colName,rows, STRATEGIES, LOGICAL_MAPPING):
     filter_dict = relation['filter']
     mask = None
     for i in range(len(filter_dict['lhs'])):
@@ -19,26 +13,9 @@ def relationType(relation, df, colName,rows, operation):
             temp = (df[col] != value) if op == "!=" else (df[col] == value)
             boolean_op = filter_dict['boolean'][i-1]
             mask = mask & temp if boolean_op == "&" else mask | temp
-    
-    if relation['strategy']['name'] == 'numberRange':
-        df = numberRangeStrategy(relation['strategy']['params'], df, colName,rows, operation, mask)
-    elif relation['strategy']['name'] == 'distributed':
-        print("Running distributed for {}".format(colName))
-        df = distributedStrategy(relation['strategy']['params'], df,
-                                   colName, rows,
-                                   operation, mask)
-    elif relation['strategy']['name'] == 'regex':
-        df = regexStrategy(relation['strategy']['params'], relation['strategy']['isUnique']
-                           , df, colName, operation, rows, mask)
-    elif relation['strategy']['name'] == 'randomName':
-        df = randomNameStrategy(df,colName, rows, operation, mask)
-    elif relation['strategy']['name'] == 'distributedNumberRange':
-        df = distributedNumberRange(relation['strategy']['params'],df,colName, rows,
-                                 operation,mask)
-    elif relation['strategy']['name'] == 'timeRange':
-        df = timeRangeStrategy(relation['strategy']['params'],df,
-                        colName, rows,operation,mask)
-    elif relation['strategy']['name'] == 'delete':
-        print("running delete")
-        df = deletionStrategy(df, colName,rows,operation,mask)
+    # test out    
+    strategy_module_path = STRATEGIES[relation['strategy']['name']]
+    strategy_module = load_strategy_module(strategy_module_path)
+    strategy_function = getattr(strategy_module, LOGICAL_MAPPING[relation['strategy']['name']])
+    df = strategy_function(relation['strategy']['params'], df, colName, rows, relation['operation'])
     return df
