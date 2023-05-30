@@ -1,6 +1,6 @@
 from utils.strategy_module import load_strategy_module
 
-def relationType(relation, df, colName,rows, STRATEGIES, LOGICAL_MAPPING):
+def relation_type(relation, df, colName,rows, STRATEGIES, LOGICAL_MAPPING):
     filter_dict = relation['filter']
     mask = None
 

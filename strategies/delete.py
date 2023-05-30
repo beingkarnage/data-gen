@@ -1,5 +1,5 @@
 import numpy as np
-def deletionStrategy(df, colName, rows, operation, mask):
+def deletion_strategy(df, colName, rows, operation, mask):
     if operation == 'insert':
         df.loc[mask, colName] = np.nan
     else :

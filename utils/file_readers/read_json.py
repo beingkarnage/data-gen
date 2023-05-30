@@ -1,3 +1,3 @@
 import pandas as pd
-def jsonReader(data):
+def json_reader(data):
     return pd.read_json(data) 

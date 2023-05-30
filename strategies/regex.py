@@ -4,30 +4,30 @@ from utils.map_to_null import map_values
 def regexStrategy(params, isUnique, df,colName, operation, rows, mask= True):
     df = df.replace('#VALUE!',np.nan)
     null_mask = mask & df[colName].isnull()
-    alreadyPresent = []
-    newGenerated = []
-    totalMissing = None
+    already_present = []
+    new_generated = []
+    total_missing = None
 
     if operation == 'insertIfEmpty' :
-        alreadyPresent = [set(df.dropna())]
-        totalMissing = df[colName].isna().sum()
+        already_present = [set(df.dropna())]
+        total_missing = df[colName].isna().sum()
     elif operation == 'insert':
-        totalMissing = rows
+        total_missing = rows
     else :
         print("Error : Wrong Operation mentioned {}".format(operation))
     
-    while totalMissing > 0 :
+    while total_missing > 0 :
         temp = rstr.xeger(params['regex'])
         if isUnique:
-            if temp not in alreadyPresent :
-                alreadyPresent.append(temp)
-                newGenerated.append(temp)
-                totalMissing-=1
+            if temp not in already_present :
+                already_present.append(temp)
+                new_generated.append(temp)
+                total_missing-=1
         else: ## t2bd
-            newGenerated.append(temp)
-            totalMissing-=1
+            new_generated.append(temp)
+            total_missing-=1
     if operation == 'insertIfEmpty':
-        df[colName] = df[colName].apply(map_values, args=(newGenerated,))
+        df[colName] = df[colName].apply(map_values, args=(new_generated,))
     elif operation == 'insert':
-        df[colName] = newGenerated
+        df[colName] = new_generated
     return df

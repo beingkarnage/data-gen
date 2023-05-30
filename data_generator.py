@@ -2,33 +2,33 @@ import pandas as pd
 import random as rd
 import sys
 
-from utils.json_loader import readJson
+from utils.json_loader import read_json
 from utils.strategy_module import load_strategy_module
 
-from relations.relation import relationType
+from relations.relation import relation_type
 
 def start():
-    configFile = readJson(sys.argv[1])
+    configFile = read_json(sys.argv[1])
     columnName = configFile['columnName']
     fileWriter = configFile['fileWriter']
     rows = configFile['numOfRows']
     configs = configFile['configs']
     df = pd.DataFrame(columns = columnName)
-    STRATEGIES = readJson("configs/STRATEGIES.json")
-    LOGICAL_MAPPING = readJson("configs/STRATEGIES_MAPPING.json")
-    for curConfig in configs:
-        for colName in curConfig['names']:
-            if 'strategy' in curConfig.keys() and len(curConfig['strategy']) != 0:
-                strategy_module = load_strategy_module(STRATEGIES[curConfig['strategy']['name']])
-                strategy = getattr(strategy_module, LOGICAL_MAPPING[curConfig['strategy']['name']])
-                df = strategy(curConfig['strategy']['params'], df, colName, rows, curConfig['operation'])
-            elif 'relationType' in curConfig.keys() and len(curConfig['relationType']) != 0:
-                for i in curConfig['relationType']:
-                    df = relationType(i, df, colName, rows, STRATEGIES, LOGICAL_MAPPING)
+    STRATEGIES = read_json("configs/STRATEGIES.json")
+    LOGICAL_MAPPING = read_json("configs/STRATEGIES_MAPPING.json")
+    for cur_config in configs:
+        for col_name in cur_config['names']:
+            if 'strategy' in cur_config.keys() and len(cur_config['strategy']) != 0:
+                strategy_module = load_strategy_module(STRATEGIES[cur_config['strategy']['name']])
+                strategy = getattr(strategy_module, LOGICAL_MAPPING[cur_config['strategy']['name']])
+                df = strategy(cur_config['strategy']['params'], df, col_name, rows, cur_config['operation'])
+            elif 'relation_type' in cur_config.keys() and len(cur_config['relation_type']) != 0:
+                for i in cur_config['relation_type']:
+                    df = relation_type(i, df, col_name, rows, STRATEGIES, LOGICAL_MAPPING)
             else:
-                print('Neither a strategy nor a relationship is found for {}'.format(curConfig))
-    WRITERS = readJson("configs/WRITERS.json")
-    WRITERS_MAPPING = readJson("configs/WRITERS_MAPPING.json")
+                print('Neither a strategy nor a relationship is found for {}'.format(cur_config))
+    WRITERS = read_json("configs/WRITERS.json")
+    WRITERS_MAPPING = read_json("configs/WRITERS_MAPPING.json")
     if len(configs) !=0:
         for i in fileWriter:
             writer_module = load_strategy_module(WRITERS[i['type']])

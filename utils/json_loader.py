@@ -1,5 +1,4 @@
 import json
-def readJson(filename) :
+def read_json(filename) :
     with open(filename, 'r') as f:
         return json.load(f)
-

@@ -1,5 +1,5 @@
 import names as nm
-def getNames(size):
+def get_names(size):
     names = []
     while size > 0:
         names.append(nm.get_first_name())

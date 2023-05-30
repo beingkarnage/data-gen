@@ -1,10 +1,10 @@
 from utils.time_generator import timeGenerator
-def timeRangeStrategy(params, df, colName, rows, operation, mask=True):
-    null_mask = mask & df[colName].isnull()
+def time_range_strategy(params, df, col_name, rows, operation, mask=True):
+    null_mask = mask & df[col_name].isnull()
     if null_mask.sum() == 0:
         return df
-    ub = params['range']['upperbound']
-    lb = params['range']['lowerbound']
+    upperbound = params['range']['upperbound']
+    lowerbound = params['range']['lowerbound']
     res = []
    
     if operation == "insertIfEmpty":
@@ -13,12 +13,12 @@ def timeRangeStrategy(params, df, colName, rows, operation, mask=True):
         size = rows
         
     while(size > 0) :
-        t = timeGenerator(ub, lb)
+        t = timeGenerator(upperbound, lowerbound)
         res.append(t)
         size-=1
         
     if operation == "insertIfEmpty":
-         df.loc[null_mask, colName] = res
+         df.loc[null_mask, col_name] = res
     elif operation == "insert":
-        df[colName] = res
+        df[col_name] = res
     return df
