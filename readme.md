@@ -31,5 +31,8 @@ Relationships allows to establish, a certain set of dependency on one or more co
 Config examples can be find in the examples/config folder
 
 ### Getting Started
-**Step 1**
-**Step 2**
+**Step 1** After cloning the repo, use `
+pip install -r requirements.txt` to get all the modules used by the script
+
+**Step 2** Create a copy of examples/config.json.example to examples/config.json , or create your own config you can refer to examples folder for more info.
+**Step 3** Now you are all set to run the script, pass down the config path to the script for example :`python data_generator.py ./examples/config.json`
