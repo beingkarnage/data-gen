@@ -25,7 +25,7 @@
       "format": "String",
       "strategy": {
         "isUnique": "False",
-        "name": "distributed",
+        "name": "DISTRBUTED_CHOICES_STRATEGY",
         "params": {
           "choices": {
             "Red": 40,
@@ -65,7 +65,7 @@
           },
           "strategy": {
             "isUnique": "False",
-            "name": "distributedNumberRange",
+            "name": "DISTRBUTED_NUMBER_RANGE_STRATEGY",
             "params": {
               "ranges": [
                 {
@@ -98,7 +98,7 @@
           },
           "strategy": {
             "isUnique": "False",
-            "name": "distributed",
+            "name": "DISTRBUTED_CHOICES_STRATEGY",
             "params": {
               "choices": {
                 "This is not red color": 100
@@ -142,7 +142,7 @@
           },
           "strategy": {
             "isUnique": "True",
-            "name": "regex",
+            "name": "REGEX_STRATEGY",
             "params": {
               "regex": "[A-Za-z0-9]{10}"
             }
