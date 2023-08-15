@@ -69,8 +69,8 @@
             "params": {
               "ranges": [
                 {
-                  "lowerbound": 100,
-                  "upperbound": 80,
+                  "upperbound": 100,
+                  "lowerbound": 80,
                   "distribution": 50
                 },
                 {
