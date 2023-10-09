@@ -1,7 +1,7 @@
 import numpy as np
 import rstr
 from utils.map_to_null import map_values
-def regexStrategy(params, isUnique, df,colName, operation, rows, mask= True):
+def regex(params, df,colName, rows, operation, isUnique=True, mask= True):
     df = df.replace('#VALUE!',np.nan)
     null_mask = mask & df[colName].isnull()
     already_present = []
