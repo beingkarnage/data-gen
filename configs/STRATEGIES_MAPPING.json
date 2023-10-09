@@ -5,6 +5,6 @@
     "DISTRBUTED_CHOICES_STRATEGY" : "distributed_strategy",
     "RANDOM_NUMBER_RANGE_STRATEGY" : "number_range_strategy",
     "RANDOM_NAME_STRATEGY" : "random_name_strategy",
-    "REGEX_STRATEGY" : "regex_strategy",
+    "REGEX_STRATEGY" : "regex",
     "TIME_RANGE_STRATEGY" : "time_range_strategy"
 }
