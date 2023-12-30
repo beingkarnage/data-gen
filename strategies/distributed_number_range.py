@@ -18,7 +18,6 @@ def distributed_number_range(params, df, colName, rows, operation, mask=True):
     elif operation == "insertIfEmpty":
         size = null_mask.sum() 
     for r in ranges:
-        print(">>>> size {}".format(size*r[2]/100))
         x = get_numbers(r[0],r[1], int(size*r[2]/100))
         generated.extend(x)
 
