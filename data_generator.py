@@ -1,9 +1,9 @@
 import pandas as pd
-import random as rd
 import sys
 
 from utils.json_loader import read_json
 from utils.strategy_module import load_strategy_module
+from utils.args_to_dict import args_to_dict
 
 from relations.relation import relation_type
 
@@ -21,7 +21,8 @@ def start():
             if 'strategy' in cur_config.keys() and len(cur_config['strategy']) != 0:
                 strategy_module = load_strategy_module(STRATEGIES[cur_config['strategy']['name']])
                 strategy = getattr(strategy_module, LOGICAL_MAPPING[cur_config['strategy']['name']])
-                df = strategy(cur_config['strategy']['params'], df, col_name, rows, cur_config['operation'])
+                params = args_to_dict(params=cur_config['strategy']['params'], df=df,colName=col_name, rows=rows, operation=cur_config['operation'], debug=cur_config['debug'])
+                df = strategy(**params)
             elif 'relation_type' in cur_config.keys() and len(cur_config['relation_type']) != 0:
                 for i in cur_config['relation_type']:
                     df = relation_type(i, df, col_name, rows, STRATEGIES, LOGICAL_MAPPING)
