@@ -1,27 +1,74 @@
 {
   "columnName": [
-    "Colors",
-    "Color Details",
-    "Secret Msg"
+    "date",
+    "distributed number range",
+    "distributed choices",
+    "random number range",
+    "random name",
+    "regex",
+    "time range"
   ],
   "fileWriter": [
     {
-      "type" : "json",
+      "type" : "csv",
       "params" : {
-        "index" :"False",
-        "orient" : "records",
-        "path_or_buf": "output.json"
+
+        "path_or_buf": "output.csv"
+        
       }
     }
   ],
-  "numOfRows": 100,
+  "numOfRows": 10,
   "fileName": "",
   "sheetName": "",
   "configs": [
     {
       "names": [
-        "Colors"
+        "date"
       ],
+      "debug" : "False",
+      "format": "String",
+      "strategy": {
+        "isUnique": "False",
+        "name": "DATE_GENERATOR_STRATEGY",
+        "params": {
+          "startDate" : "2000-10-20",
+          "endDate" : "2024-01-31"
+        }
+      },
+      "operation": "insert"
+    },
+    {
+      "names": [
+        "distributed number range"
+      ],
+      "debug" : "False",
+      "format": "String",
+      "strategy": {
+        "isUnique": "False",
+        "name": "DISTRBUTED_NUMBER_RANGE_STRATEGY",
+        "params": {
+          "ranges" : [
+            {
+              "lowerbound" : 0,
+              "upperbound" : 20,
+              "distribution" : 90
+            },
+            {
+              "lowerbound" : 10,
+              "upperbound" : 30,
+              "distribution" : 10
+            }
+          ]
+        }
+      },
+      "operation": "insert"
+    },
+    {
+      "names": [
+        "distributed choices"
+      ],
+      "debug" : "False",
       "format": "String",
       "strategy": {
         "isUnique": "False",
@@ -41,115 +88,69 @@
     },
     {
       "names": [
-        "Color Details"
+        "random number range"
       ],
+      "debug" : "False",
       "format": "String",
-      "relationType": [
-        {
-          "filter": {
-            "lhs": [
-              "Colors",
-              "Colors"
-            ],
-            "rhs": [
-              "Black",
-              "White"
-            ],
-            "operation": [
-              "==",
-              "=="
-            ],
-            "boolean": [
-              "|"
-            ]
-          },
-          "strategy": {
-            "isUnique": "False",
-            "name": "DISTRBUTED_NUMBER_RANGE_STRATEGY",
-            "params": {
-              "ranges": [
-                {
-                  "upperbound": 100,
-                  "lowerbound": 80,
-                  "distribution": 50
-                },
-                {
-                  "upperbound": 20,
-                  "lowerbound": 0,
-                  "distribution": 50
-                }
-              ]
-            }
-          },
-          "operation": "insertIfEmpty"
-        },
-        {
-          "filter": {
-            "lhs": [
-              "Colors"
-            ],
-            "rhs": [
-              "Red"
-            ],
-            "operation": [
-              "!="
-            ],
-            "boolean": []
-          },
-          "strategy": {
-            "isUnique": "False",
-            "name": "DISTRBUTED_CHOICES_STRATEGY",
-            "params": {
-              "choices": {
-                "This is not red color": 100
-              }
-            }
-          },
-          "operation": "insertIfEmpty"
+      "strategy": {
+        "isUnique": "False",
+        "name": "RANDOM_NUMBER_RANGE_STRATEGY",
+        "params": {
+          "range" : {
+            "upperbound" : 200,
+            "lowerbound" : 10
+          }
         }
-      ]
+      },
+      "operation": "insert"
     },
     {
       "names": [
-        "Secret Msg"
+        "random name"
       ],
+      "debug" : "False",
       "format": "String",
-      "relationType": [
-        {
-          "filter": {
-            "lhs": [
-              "Colors",
-              "Colors",
-              "Colors",
-              "Colors",
-              "Colors",
-              "Colors",
-              "Colors"
-            ],
-            "rhs": [
-              "Yellow",
-              "Red",
-              "Green",
-              "Blue",
-              "Black",
-              "White",
-              "Gray"
-            ],
-            "operation": [
-              "==","==","==","==","==","==","=="
-            ],
-            "boolean": ["|","|","|","|","|","|"]
-          },
-          "strategy": {
-            "isUnique": "True",
-            "name": "REGEX_STRATEGY",
-            "params": {
-              "regex": "[A-Za-z0-9]{10}"
-            }
-          },
-          "operation": "insertIfEmpty"
+      "strategy": {
+        "isUnique": "False",
+        "name": "RANDOM_NAME_STRATEGY",
+        "params": {
+          
         }
-      ]
+      },
+      "operation": "insert"
+    },
+    {
+      "names": [
+        "regex"
+      ],
+      "debug" : "False",
+      "format": "String",
+      "strategy": {
+        "isUnique": "False",
+        "name": "REGEX_STRATEGY",
+        "params": {
+          "regex": "[A-Za-z0-9]{10}"
+        }
+      },
+      "operation": "insert"
+    },
+   
+    {
+      "names": [
+        "time range"
+      ],
+      "debug" : "False",
+      "format": "String",
+      "strategy": {
+        "name": "TIME_RANGE_STRATEGY",
+        "params" : {
+          "range" : {
+            "upperbound" : "12:00:00AM",
+            "lowerbound" : "10:00:00PM"
+          }
+          }
+      },
+      "operation" : "insert"
     }
   ]
 }
