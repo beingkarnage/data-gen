@@ -1,24 +1,26 @@
 import numpy as np
 import rstr
 from utils.map_to_null import map_values
-def regex(params, df,colName, rows, operation, isUnique=True, mask= True):
+def regex(**kwargs):
+    df = kwargs.get('df')
     df = df.replace('#VALUE!',np.nan)
-    null_mask = mask & df[colName].isnull()
     already_present = []
     new_generated = []
     total_missing = None
+    colName = kwargs.get('colName')
 
-    if operation == 'insertIfEmpty' :
+    if kwargs.get('operation') == 'insertIfEmpty' :
         already_present = [set(df.dropna())]
+        df = kwargs.get('df')        
         total_missing = df[colName].isna().sum()
-    elif operation == 'insert':
-        total_missing = rows
+    elif kwargs.get('operation') == 'insert':
+        total_missing = kwargs.get('rows')
     else :
-        print("Error : Wrong Operation mentioned {}".format(operation))
+        print("Error : Wrong Operation mentioned {}".format(kwargs.get('operation')))
     
     while total_missing > 0 :
-        temp = rstr.xeger(params['regex'])
-        if isUnique:
+        temp = rstr.xeger(kwargs.get('params').get('regex'))
+        if kwargs.get('isUnique'):
             if temp not in already_present :
                 already_present.append(temp)
                 new_generated.append(temp)
@@ -26,8 +28,8 @@ def regex(params, df,colName, rows, operation, isUnique=True, mask= True):
         else: ## t2bd
             new_generated.append(temp)
             total_missing-=1
-    if operation == 'insertIfEmpty':
+    if kwargs.get('operation') == 'insertIfEmpty':
         df[colName] = df[colName].apply(map_values, args=(new_generated,))
-    elif operation == 'insert':
+    elif kwargs.get('operation') == 'insert':
         df[colName] = new_generated
     return df

@@ -1,24 +1,27 @@
 from utils.time_generator import timeGenerator
-def time_range_strategy(params, df, col_name, rows, operation, mask=True):
-    null_mask = mask & df[col_name].isnull()
+def time_range_strategy(**kwargs):
+    df = kwargs.get('df')
+    col_name = kwargs.get('colName')
+    null_mask = kwargs.get('mask',False) & df[col_name].isnull()
+
     if null_mask.sum() == 0:
         return df
-    upperbound = params['range']['upperbound']
-    lowerbound = params['range']['lowerbound']
+    upperbound = kwargs.get('params').get('range').get('upperbound')
+    lowerbound = kwargs.get('params').get('range').get('lowerbound')
     res = []
    
-    if operation == "insertIfEmpty":
+    if kwargs.get('operation') == "insertIfEmpty":
         size = null_mask.sum()
-    elif operation == "insert":
-        size = rows
+    elif kwargs.get('operation') == "insert":
+        size = kwargs.get('rows')
         
     while(size > 0) :
         t = timeGenerator(upperbound, lowerbound)
         res.append(t)
         size-=1
         
-    if operation == "insertIfEmpty":
+    if kwargs.get('operation') == "insertIfEmpty":
          df.loc[null_mask, col_name] = res
-    elif operation == "insert":
+    elif kwargs.get('operation') == "insert":
         df[col_name] = res
     return df
