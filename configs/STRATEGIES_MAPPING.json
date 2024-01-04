@@ -2,7 +2,7 @@
     "DATE_GENERATOR_STRATEGY" : "date_generator_strategy",
     "DELETE_STRATEGY" : "deletion_strategy",
     "DISTRBUTED_NUMBER_RANGE_STRATEGY" : "distributed_number_range",
-    "DISTRBUTED_CHOICES_STRATEGY" : "distributed_strategy",
+    "DISTRBUTED_CHOICES_STRATEGY" : "distributed_choice_strategy",
     "RANDOM_NUMBER_RANGE_STRATEGY" : "number_range_strategy",
     "RANDOM_NAME_STRATEGY" : "random_name_strategy",
     "REGEX_STRATEGY" : "regex",

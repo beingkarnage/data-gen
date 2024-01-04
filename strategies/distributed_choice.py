@@ -1,5 +1,5 @@
 import numpy as np
-def distributed_strategy(**kwargs):
+def distributed_choice_strategy(**kwargs):
     df = kwargs.get('df')
     colName = kwargs.get('colName')
     null_mask = kwargs.get('mask',False) & df[colName].isnull()
