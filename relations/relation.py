@@ -1,6 +1,21 @@
 from utils.strategy_module import load_strategy_module
 
 def relation_type(relation, df, colName,rows, STRATEGIES, LOGICAL_MAPPING):
+    """ 
+    Summary:
+        creates a set of boolean values also referred as `mask` in the code, to generate some other column based on this mask    
+        
+    Args:
+        relation: holds filter dict which have left hand side operartor referred as `col`, and rhs the value which is going .
+        df: an empty dataframe or a dataframe which is generated from previous strategy or relation.
+        colName: column for which the data to be generate.
+        rows: number of rows to generate.
+        STRATEGIES: type of strategy which is used to generate colName.
+        LOGICAL_MAPPING: a constant wrapper for strategy file config.
+
+    Returns:
+        df : an updated dataframe.
+    """
     filter_dict = relation['filter']
     mask = None
 
