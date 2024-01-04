@@ -2,6 +2,24 @@ import numpy as np
 import rstr
 from utils.map_to_null import map_values
 def regex(**kwargs):
+    """
+    Summary:
+        generates a regex pattern
+
+    Args:
+        params (dict): holds the arguments on which stratgies are generated.
+        df (padans.DataFrame): an empty dataframe or a dataframe which is generated from previous strategy or relation.
+        operation (str): type operating the generated to the column.
+        mask (pandas.Series, optional): a list of booleans to generate data for some specific rows, came from a relation
+          Defaults to `False`.
+        colName: column for which the data to be generate.
+        rows (int): number of rows to generate.
+        isUnique (boolean): to generate a unique value or not
+        
+    Returns:
+        df (pandas.DataFrame): updted dataframe.
+    """
+    
     df = kwargs.get('df')
     df = df.replace('#VALUE!',np.nan)
     already_present = []

@@ -8,6 +8,10 @@ from utils.args_to_dict import args_to_dict
 from relations.relation import relation_type
 
 def start():
+    """
+    Summary:
+        driver code for generating the data, loads all the strategy, utils, relation and writer files
+    """
     configFile = read_json(sys.argv[1])
     columnName = configFile['columnName']
     fileWriter = configFile['fileWriter']
