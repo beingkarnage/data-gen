@@ -1,6 +1,6 @@
 from utils.strategy_module import load_strategy_module
-
-def relation_type(relation, df, colName,rows, STRATEGIES, LOGICAL_MAPPING):
+from pandas import DataFrame
+def relation_type(relation: dict, df: DataFrame, colName:str,rows, STRATEGIES: dict, LOGICAL_MAPPING: dict) -> DataFrame:
     """ 
     Summary:
         creates a set of boolean values also referred as `mask` in the code, to generate some other column based on this mask    

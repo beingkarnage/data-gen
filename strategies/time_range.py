@@ -20,8 +20,8 @@ def time_range_strategy(**kwargs):
     col_name = kwargs.get('colName')
     null_mask = kwargs.get('mask',False) & df[col_name].isnull()
 
-    if null_mask.sum() == 0:
-        return df
+    # if null_mask.sum() == 0:
+    #     return df
     upperbound = kwargs.get('params').get('range').get('upperbound')
     lowerbound = kwargs.get('params').get('range').get('lowerbound')
     res = []
@@ -35,7 +35,7 @@ def time_range_strategy(**kwargs):
         t = timeGenerator(upperbound, lowerbound)
         res.append(t)
         size-=1
-        
+
     if kwargs.get('operation') == "insertIfEmpty":
          df.loc[null_mask, col_name] = res
     elif kwargs.get('operation') == "insert":

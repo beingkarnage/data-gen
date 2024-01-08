@@ -22,6 +22,7 @@ def start():
     LOGICAL_MAPPING = read_json("configs/STRATEGIES_MAPPING.json")
     for cur_config in configs:
         for col_name in cur_config['names']:
+            print("GENERATING COLUMN {} ".format(cur_config['names']))
             if 'strategy' in cur_config.keys() and len(cur_config['strategy']) != 0:
                 strategy_module = load_strategy_module(STRATEGIES[cur_config['strategy']['name']])
                 strategy = getattr(strategy_module, LOGICAL_MAPPING[cur_config['strategy']['name']])
