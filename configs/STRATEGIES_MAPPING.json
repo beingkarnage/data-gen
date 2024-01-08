@@ -6,5 +6,6 @@
     "RANDOM_NUMBER_RANGE_STRATEGY" : "number_range_strategy",
     "RANDOM_NAME_STRATEGY" : "random_name_strategy",
     "REGEX_STRATEGY" : "regex",
-    "TIME_RANGE_STRATEGY" : "time_range_strategy"
+    "TIME_RANGE_STRATEGY" : "time_range_strategy",
+    "REPLACEMENT_STRATEGY" : "replacement"
 }
