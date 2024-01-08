@@ -1,30 +1,27 @@
 {
   "columnName": [
-    "date",
-    "distributed number range",
-    "distributed choices",
-    "random number range",
-    "random name",
-    "regex",
-    "time range"
+    "DOB",
+    "AGE",
+    "FAVOURITE SPORT",
+    "PHONE NUMBER",
+    "NAME",
+    "SSN"
   ],
   "fileWriter": [
     {
       "type" : "csv",
       "params" : {
-
         "path_or_buf": "output.csv"
-        
       }
     }
   ],
-  "numOfRows": 10,
+  "numOfRows": 50,
   "fileName": "",
   "sheetName": "",
   "configs": [
     {
       "names": [
-        "date"
+        "DOB"
       ],
       "debug" : "False",
       "format": "String",
@@ -32,15 +29,15 @@
         "isUnique": "False",
         "name": "DATE_GENERATOR_STRATEGY",
         "params": {
-          "startDate" : "2000-10-20",
-          "endDate" : "2024-01-31"
+          "startDate" : "1970-10-20",
+          "endDate" : "2000-01-31"
         }
       },
       "operation": "insert"
     },
     {
       "names": [
-        "distributed number range"
+        "AGE"
       ],
       "debug" : "False",
       "format": "String",
@@ -50,13 +47,18 @@
         "params": {
           "ranges" : [
             {
-              "lowerbound" : 0,
-              "upperbound" : 20,
-              "distribution" : 90
+              "lowerbound" : 5,
+              "upperbound" : 25,
+              "distribution" : 60
             },
             {
-              "lowerbound" : 10,
-              "upperbound" : 30,
+              "lowerbound" : 26,
+              "upperbound" : 70,
+              "distribution" : 30
+            },
+            {
+              "lowerbound" : 70,
+              "upperbound" : 120,
               "distribution" : 10
             }
           ]
@@ -66,29 +68,67 @@
     },
     {
       "names": [
-        "distributed choices"
+        "FAVOURITE SPORT"
       ],
       "debug" : "False",
       "format": "String",
-      "strategy": {
-        "isUnique": "False",
-        "name": "DISTRBUTED_CHOICES_STRATEGY",
-        "params": {
-          "choices": {
-            "Red": 40,
-            "Green": 10,
-            "Blue": 20,
-            "Black": 20,
-            "White": 5,
-            "Gray": 5
-          }
+      "relation_type": [
+        {
+          "filter": {
+            "lhs": [
+              "AGE"
+            ],
+            "rhs": [
+              "70"
+            ],
+            "operation": [
+              ">"
+            ],
+            "boolean": [
+            ]
+          },
+          "strategy": {
+            "isUnique": "False",
+            "name": "DISTRBUTED_CHOICES_STRATEGY",
+            "params": {
+              "choices": {
+                "golf" : 100
+              }
+            }
+          },
+          "operation": "insertIfEmpty"
+        },
+        {
+          "filter": {
+            "lhs": [
+              "AGE"
+            ],
+            "rhs": [
+              "70"
+            ],
+            "operation": [
+              "<"
+            ],
+            "boolean": [
+            ]
+          },
+          "strategy": {
+            "isUnique": "False",
+            "name": "DISTRBUTED_CHOICES_STRATEGY",
+            "params": {
+              "choices": {
+                "cricket" : 50,
+                "soccer": 50
+              }
+            }
+          },
+          "operation": "insertIfEmpty"
         }
-      },
-      "operation": "insert"
+      ]
     },
     {
       "names": [
-        "random number range"
+        "PHONE NUMBER"
       ],
       "debug" : "False",
       "format": "String",
@@ -97,8 +137,8 @@
         "name": "RANDOM_NUMBER_RANGE_STRATEGY",
         "params": {
           "range" : {
-            "upperbound" : 200,
-            "lowerbound" : 10
+            "upperbound" : 9999999999,
+            "lowerbound" : 9000000000
           }
         }
       },
@@ -106,22 +146,19 @@
     },
     {
       "names": [
-        "random name"
+        "NAME"
       ],
       "debug" : "False",
       "format": "String",
       "strategy": {
         "isUnique": "False",
-        "name": "RANDOM_NAME_STRATEGY",
-        "params": {
-          
-        }
+        "name": "RANDOM_NAME_STRATEGY"
       },
       "operation": "insert"
     },
     {
       "names": [
-        "regex"
+        "SSN"
       ],
       "debug" : "False",
       "format": "String",
@@ -129,28 +166,10 @@
         "isUnique": "False",
         "name": "REGEX_STRATEGY",
         "params": {
-          "regex": "[A-Za-z0-9]{10}"
+          "regex": "[A-Za-z0-9]{20}"
         }
       },
       "operation": "insert"
-    },
-   
-    {
-      "names": [
-        "time range"
-      ],
-      "debug" : "False",
-      "format": "String",
-      "strategy": {
-        "name": "TIME_RANGE_STRATEGY",
-        "params" : {
-          "range" : {
-            "upperbound" : "12:00:00AM",
-            "lowerbound" : "10:00:00PM"
-          }
-          }
-      },
-      "operation" : "insert"
     }
   ]
 }
