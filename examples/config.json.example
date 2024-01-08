@@ -170,6 +170,22 @@
         }
       },
       "operation": "insert"
+    },
+    {
+      "names": [
+        "AGE"
+      ],
+      "debug" : "False",
+      "format": "String",
+      "operation" : "insert",
+      "strategy": {
+        "isUnique": "False",
+        "name": "REPLACEMENT_STRATEGY",
+        "params": {
+          "from_value" : 70,
+          "to_value": 90 
+        }
+      } 
     }
   ]
 }
