@@ -1,4 +1,5 @@
 from utils.strategy_module import load_strategy_module
+from utils.args_to_dict import args_to_dict
 
 def relation_type(relation, df, colName,rows, STRATEGIES, LOGICAL_MAPPING):
     """ 
@@ -24,15 +25,30 @@ def relation_type(relation, df, colName,rows, STRATEGIES, LOGICAL_MAPPING):
         value = filter_dict['rhs'][i]
         op = filter_dict['operation'][i]
         if mask is None:
-            mask = (df[col] != value) if op == "!=" else (df[col] == value)
+            if op == "!=":
+                mask = (df[col] != value)
+            elif op == "<":
+                mask = (df[col] < int(value))
+            elif op == ">":
+                mask = (df[col] > int(value))
+            else:
+                (df[col] == value)
         else:
-            temp = (df[col] != value) if op == "!=" else (df[col] == value)
+            if op == "!=":
+                temp = (df[col] != value) 
+            elif op == ">":
+                temp = (df[col] > int(value))
+            elif op == "<":
+                temp = (df[col] < int(value))
+            else: 
+                df[col] == value
+            
             boolean_op = filter_dict['boolean'][i-1]
             mask = mask & temp if boolean_op == "&" else mask | temp
 
     strategy_module_path = STRATEGIES[relation['strategy']['name']]
     strategy_module = load_strategy_module(strategy_module_path)
     strategy_function = getattr(strategy_module, LOGICAL_MAPPING[relation['strategy']['name']])
-    df = strategy_function(relation['strategy']['params'],
-                            df, colName, rows, relation['operation'],mask=mask)
+    params = args_to_dict(params=relation['strategy']['params'], df=df,colName=colName, rows=rows, operation=relation['operation'], debug=relation.get("debug", False), mask=mask)
+    df = strategy_function(**params)
     return df
