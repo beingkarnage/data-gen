@@ -30,7 +30,7 @@ def date_generator_strategy(**kwargs):
     df = kwargs.get('df')
     colName = kwargs.get('colName')
 
-    null_mask = kwargs.get('mask') & (df[colName].isnull())
+    null_mask = kwargs.get('mask', False) & (df[colName].isnull())
     res = []
     
     if kwargs.get("operation") == "insert":
