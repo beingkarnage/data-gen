@@ -7,5 +7,6 @@
     "RANDOM_NAME_STRATEGY" : "strategies/random_name.py",
     "REGEX_STRATEGY" : "strategies/regex.py",
     "TIME_RANGE_STRATEGY" : "strategies/time_range.py",
-    "REPLACEMENT_STRATEGY" : "strategies/replacement.py"
+    "REPLACEMENT_STRATEGY" : "strategies/replacement.py",
+    "SERIES_STRATEGY" : "strategies/series_strategy.py"
 }
