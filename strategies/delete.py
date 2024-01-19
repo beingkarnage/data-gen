@@ -15,7 +15,7 @@ def deletion_strategy(**kwargs):
     """
     df = kwargs.get('df')
     if kwargs.get('operation') == 'insert':
-        df.loc[kwargs.get('mask', True), kwargs.get('colName')] = np.nan
+       df.loc[kwargs.get('mask', True), kwargs.get('colName')] = kwargs.get('params').get(("value_to_replace"),np.nan )
     else :
         print("Error Invalid Operation {}".format(kwargs.get('operation')))
     return df
