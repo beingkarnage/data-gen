@@ -1,6 +1,13 @@
 from utils.strategy_module import load_strategy_module
 from utils.args_to_dict import args_to_dict
 
+
+def compare_type(val):
+    if type(val) == str:
+        return str(val)
+    elif type(val) == int:
+        return int(val)
+    
 def relation_type(relation, df, colName,rows, STRATEGIES, LOGICAL_MAPPING):
     """ 
     Summary:
@@ -26,22 +33,22 @@ def relation_type(relation, df, colName,rows, STRATEGIES, LOGICAL_MAPPING):
         op = filter_dict['operation'][i]
         if mask is None:
             if op == "!=":
-                mask = (df[col] != value)
+                mask = (df[col] != compare_type(value))
             elif op == "<":
-                mask = (df[col] < int(value))
+                mask = (df[col] < compare_type(value))
             elif op == ">":
-                mask = (df[col] > int(value))
+                mask = (df[col] > compare_type(value))
             else:
-                (df[col] == value)
+                mask = (df[col] == compare_type(value))
         else:
             if op == "!=":
-                temp = (df[col] != value) 
+                temp = (df[col] != compare_type(value))
             elif op == ">":
-                temp = (df[col] > int(value))
+                temp = (df[col] > compare_type(value))
             elif op == "<":
-                temp = (df[col] < int(value))
+                temp = (df[col] < compare_type(value))
             else: 
-                df[col] == value
+                temp = (df[col] == compare_type(value))
             
             boolean_op = filter_dict['boolean'][i-1]
             mask = mask & temp if boolean_op == "&" else mask | temp
