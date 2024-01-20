@@ -1,4 +1,5 @@
 from pandas import Series
+from numpy import arange
 def series(**kwargs):
     """
     Summary:
@@ -25,7 +26,7 @@ def series(**kwargs):
         if null_mask.sum() == 0:
             return df
         df.loc[null_mask, colName] = Series(
-            range(
+            arange(
                 kwargs.get('params').get('start',0),
                 min(kwargs.get('params').get('end'), null_mask.sum())
                 )
@@ -33,7 +34,7 @@ def series(**kwargs):
     
     elif kwargs.get('operation') == "insert":
         df[colName] = Series(
-                    range(
+                    arange(
                         kwargs.get('params').get('start', 0),
                         kwargs.get('rows') + kwargs.get('params').get('start', 0)
                     )
