@@ -23,6 +23,7 @@
       "names": [
         "DOB"
       ],
+      "disable" : "True",
       "debug" : "False",
       "format": "String",
       "strategy": {
@@ -39,6 +40,7 @@
       "names": [
         "AGE"
       ],
+      "disable" : "True",
       "debug" : "False",
       "format": "String",
       "strategy": {
@@ -70,6 +72,7 @@
       "names": [
         "FAVOURITE SPORT"
       ],
+      "disable" : "True",
       "debug" : "False",
       "format": "String",
       "relation_type": [
@@ -148,6 +151,7 @@
       "names": [
         "NAME"
       ],
+      "disable" : "True",
       "debug" : "False",
       "format": "String",
       "strategy": {
@@ -160,6 +164,7 @@
       "names": [
         "SSN"
       ],
+      "disable" : "True",
       "debug" : "False",
       "format": "String",
       "strategy": {
@@ -175,6 +180,7 @@
       "names": [
         "AGE"
       ],
+      "disable" : "True",
       "debug" : "False",
       "format": "String",
       "operation" : "insert",

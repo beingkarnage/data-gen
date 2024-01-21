@@ -22,6 +22,9 @@ def start():
     LOGICAL_MAPPING = read_json("configs/STRATEGIES_MAPPING.json")
     for cur_config in configs:
         for col_name in cur_config['names']:
+            if 'disable' in cur_config.keys():
+                print("Skipping {}".format(col_name))
+                continue
             if 'strategy' in cur_config.keys() and len(cur_config['strategy']) != 0:
                 strategy_module = load_strategy_module(STRATEGIES[cur_config['strategy']['name']])
                 strategy = getattr(strategy_module, LOGICAL_MAPPING[cur_config['strategy']['name']])
@@ -38,7 +41,7 @@ def start():
         for i in fileWriter:
             writer_module = load_strategy_module(WRITERS[i['type']])
             writer = getattr(writer_module, WRITERS_MAPPING[i['type']])
-            writer(df, i['params'])
+            writer(df, fileWriter[0].get('params'))
 
 if __name__ == '__main__':
     start()
