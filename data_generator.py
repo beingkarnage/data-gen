@@ -28,7 +28,7 @@ def start():
             if 'strategy' in cur_config.keys() and len(cur_config['strategy']) != 0:
                 strategy_module = load_strategy_module(STRATEGIES[cur_config['strategy']['name']])
                 strategy = getattr(strategy_module, LOGICAL_MAPPING[cur_config['strategy']['name']])
-                params = args_to_dict(params=cur_config.get('strategy').get('params',{}), df=df,colName=col_name, rows=rows, operation=cur_config.get('operation'), debug=cur_config.get('debug'))
+                params = args_to_dict(params=cur_config.get('strategy').get('params',{}), df=df,colName=col_name, rows=rows, operation=cur_config.get('operation', 'insert'), debug=cur_config.get('debug',False))
                 df = strategy(**params)
             elif 'relation_type' in cur_config.keys() and len(cur_config['relation_type']) != 0:
                 for i in cur_config['relation_type']:
