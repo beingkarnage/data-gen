@@ -28,7 +28,7 @@ def distributed_number_range(**kwargs):
         ranges.append(tuple(t))
         dist_sum += i['distribution']
     if dist_sum!=100:
-        print("Error : Invalid distribution given, distributions sum should be equal to 100, but got {}".format(distSum))
+        print("Error : Invalid distribution given, distributions sum should be equal to 100, but got {}".format(dist_sum))
         return df
 
     generated = []
