@@ -14,7 +14,7 @@ def replacement(**kwargs):
         df (pandas.DataFrame): updted dataframe.
     """
     df = kwargs.get('df')
-    colName = kwargs.get('colName')
+    colName = kwargs.get('col_name')
 
     df[colName] = df[colName].replace(kwargs.get('params').get('from_value'), kwargs.get('params').get('to_value'))
     return df

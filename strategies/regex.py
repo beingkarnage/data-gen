@@ -14,7 +14,7 @@ def regex(**kwargs):
           Defaults to `False`.
         colName: column for which the data to be generate.
         rows (int): number of rows to generate.
-        isUnique (boolean): to generate a unique value or not
+        is_unique (boolean): to generate a unique value or not
         
     Returns:
         df (pandas.DataFrame): updted dataframe.
@@ -25,7 +25,7 @@ def regex(**kwargs):
     already_present = []
     new_generated = []
     total_missing = None
-    colName = kwargs.get('colName')
+    colName = kwargs.get('col_name')
 
     if kwargs.get('operation') == 'insertIfEmpty' :
         already_present = [set(df.dropna())]
@@ -38,7 +38,7 @@ def regex(**kwargs):
     
     while total_missing > 0 :
         temp = rstr.xeger(kwargs.get('params').get('regex'))
-        if kwargs.get('isUnique'):
+        if kwargs.get('is_unique'):
             if temp not in already_present :
                 already_present.append(temp)
                 new_generated.append(temp)
@@ -46,7 +46,7 @@ def regex(**kwargs):
         else: ## t2bd
             new_generated.append(temp)
             total_missing-=1
-    if kwargs.get('operation') == 'insertIfEmpty':
+    if kwargs.get('operation') == 'insert_if_empty':
         df[colName] = df[colName].apply(map_values, args=(new_generated,))
     elif kwargs.get('operation') == 'insert':
         df[colName] = new_generated

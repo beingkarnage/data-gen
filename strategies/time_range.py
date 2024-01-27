@@ -17,7 +17,7 @@ def time_range_strategy(**kwargs):
         df (pandas.DataFrame): updted dataframe.
     """
     df = kwargs.get('df')
-    col_name = kwargs.get('colName')
+    col_name = kwargs.get('col_name')
     null_mask = kwargs.get('mask',False) & df[col_name].isnull()
 
     if null_mask.sum() == 0:
@@ -26,7 +26,7 @@ def time_range_strategy(**kwargs):
     lowerbound = kwargs.get('params').get('range').get('lowerbound')
     res = []
    
-    if kwargs.get('operation') == "insertIfEmpty":
+    if kwargs.get('operation') == "insert_if_empty":
         size = null_mask.sum()
     elif kwargs.get('operation') == "insert":
         size = kwargs.get('rows')
@@ -36,7 +36,7 @@ def time_range_strategy(**kwargs):
         res.append(t)
         size-=1
         
-    if kwargs.get('operation') == "insertIfEmpty":
+    if kwargs.get('operation') == "insert_if_empty":
          df.loc[null_mask, col_name] = res
     elif kwargs.get('operation') == "insert":
         df[col_name] = res

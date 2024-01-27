@@ -17,11 +17,11 @@ def number_range_strategy(**kwargs):
         df (pandas.DataFrame): updted dataframe.
     """
     df = kwargs.get('df')
-    colName = kwargs.get('colName')
+    colName = kwargs.get('col_name')
     null_mask = kwargs.get('mask',False) & df[colName].isnull()
     ub = kwargs.get('params').get('range').get('upperbound')
     lb = kwargs.get('params').get('range').get('lowerbound')
-    if kwargs.get('operation') == "insertIfEmpty":
+    if kwargs.get('operation') == "insert_if_empty":
         if null_mask.sum() == 0:
             return df
         df.loc[null_mask, colName] = get_numbers(lb, ub, null_mask.sum())

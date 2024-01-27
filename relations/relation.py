@@ -8,7 +8,7 @@ def compare_type(val):
     elif type(val) == int:
         return int(val)
     
-def relation_type(relation, df, colName,rows, STRATEGIES, LOGICAL_MAPPING):
+def relation_type(relation, df, col_name,rows, STRATEGIES, LOGICAL_MAPPING):
     """ 
     Summary:
         creates a set of boolean values also referred as `mask` in the code, to generate some other column based on this mask    
@@ -56,6 +56,6 @@ def relation_type(relation, df, colName,rows, STRATEGIES, LOGICAL_MAPPING):
     strategy_module_path = STRATEGIES[relation['strategy']['name']]
     strategy_module = load_strategy_module(strategy_module_path)
     strategy_function = getattr(strategy_module, LOGICAL_MAPPING[relation['strategy']['name']])
-    params = args_to_dict(params=relation['strategy']['params'], df=df,colName=colName, rows=rows, operation=relation['operation'], debug=relation.get("debug", False), mask=mask)
+    params = args_to_dict(params=relation['strategy']['params'], df=df,col_name=col_name, rows=rows, operation=relation['operation'], debug=relation.get("debug", False), mask=mask)
     df = strategy_function(**params)
     return df

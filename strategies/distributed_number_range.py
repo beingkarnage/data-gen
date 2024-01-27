@@ -19,7 +19,7 @@ def distributed_number_range(**kwargs):
     """
     
     df = kwargs.get('df')
-    colName = kwargs.get('colName')
+    colName = kwargs.get('col_name')
     null_mask = kwargs.get('mask',False) & df[colName].isnull()
     dist_sum = 0
     ranges =[]
@@ -34,7 +34,7 @@ def distributed_number_range(**kwargs):
     generated = []
     if kwargs.get('operation') == "insert":
         size = kwargs.get('rows')
-    elif kwargs.get('operation') == "insertIfEmpty":
+    elif kwargs.get('operation') == "insert_if_empty":
         size = null_mask.sum() 
     for r in ranges:
         x = get_numbers(r[0],r[1], int(size*r[2]/100))
@@ -43,7 +43,7 @@ def distributed_number_range(**kwargs):
     np.random.shuffle(generated)
     if kwargs.get('operation') == "insert":
         df[colName] = generated
-    elif kwargs.get('operation') == "insertIfEmpty":
+    elif kwargs.get('operation') == "insert_if_empty":
         while(len(generated)!=null_mask.sum()):
             generated.append(generated[-1]) 
         df.loc[null_mask, colName] = generated

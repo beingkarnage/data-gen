@@ -1,12 +1,13 @@
 {   
     "DATE_GENERATOR_STRATEGY" : "date_generator_strategy",
     "DELETE_STRATEGY" : "deletion_strategy",
-    "DISTRBUTED_NUMBER_RANGE_STRATEGY" : "distributed_number_range",
-    "DISTRBUTED_CHOICES_STRATEGY" : "distributed_choice_strategy",
+    "DISTRIBUTED_NUMBER_RANGE_STRATEGY" : "distributed_number_range",
+    "DISTRIBUTED_CHOICES_STRATEGY" : "distributed_choice_strategy",
     "RANDOM_NUMBER_RANGE_STRATEGY" : "number_range_strategy",
     "RANDOM_NAME_STRATEGY" : "random_name_strategy",
     "REGEX_STRATEGY" : "regex",
     "TIME_RANGE_STRATEGY" : "time_range_strategy",
     "REPLACEMENT_STRATEGY" : "replacement",
-    "SERIES_STRATEGY" : "series"
+    "SERIES_STRATEGY" : "series",
+    "DISTRIBUTED_DATE_STRATEGY" : "distributed_date"
 }

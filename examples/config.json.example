@@ -1,13 +1,13 @@
 {
-  "columnName": [
+  "column_name": [
     "DOB",
     "AGE",
     "FAVOURITE SPORT",
     "PHONE NUMBER",
     "NAME",
-    "SSN"
+    "SSN","ID"
   ],
-  "fileWriter": [
+  "file_writer": [
     {
       "type" : "csv",
       "params" : {
@@ -15,23 +15,21 @@
       }
     }
   ],
-  "numOfRows": 50,
-  "fileName": "",
-  "sheetName": "",
+  "num_of_rows": 50,
   "configs": [
     {
       "names": [
         "DOB"
       ],
-      "disable" : "True",
+      "disable" : "False",
       "debug" : "False",
       "format": "String",
       "strategy": {
-        "isUnique": "False",
+        "is_unique": "False",
         "name": "DATE_GENERATOR_STRATEGY",
         "params": {
-          "startDate" : "1970-10-20",
-          "endDate" : "2000-01-31"
+          "start_date" : "1970-10-20",
+          "end_date" : "2000-01-31"
         }
       },
       "operation": "insert"
@@ -40,12 +38,12 @@
       "names": [
         "AGE"
       ],
-      "disable" : "True",
+      "disable" : "False",
       "debug" : "False",
       "format": "String",
       "strategy": {
-        "isUnique": "False",
-        "name": "DISTRBUTED_NUMBER_RANGE_STRATEGY",
+        "is_unique": "False",
+        "name": "DISTRIBUTED_NUMBER_RANGE_STRATEGY",
         "params": {
           "ranges" : [
             {
@@ -72,7 +70,7 @@
       "names": [
         "FAVOURITE SPORT"
       ],
-      "disable" : "True",
+      "disable" : "False",
       "debug" : "False",
       "format": "String",
       "relation_type": [
@@ -82,7 +80,7 @@
               "AGE"
             ],
             "rhs": [
-              "70"
+              70
             ],
             "operation": [
               ">"
@@ -91,8 +89,8 @@
             ]
           },
           "strategy": {
-            "isUnique": "False",
-            "name": "DISTRBUTED_CHOICES_STRATEGY",
+            "is_unique": "False",
+            "name": "DISTRIBUTED_CHOICES_STRATEGY",
             "params": {
               "choices": {
                 "golf" : 100
@@ -107,7 +105,7 @@
               "AGE"
             ],
             "rhs": [
-              "70"
+              70
             ],
             "operation": [
               "<"
@@ -116,16 +114,17 @@
             ]
           },
           "strategy": {
-            "isUnique": "False",
-            "name": "DISTRBUTED_CHOICES_STRATEGY",
+            "is_unique": "False",
+            "name": "DISTRIBUTED_CHOICES_STRATEGY",
             "params": {
               "choices": {
                 "cricket" : 50,
-                "soccer": 50
+                "soccer": 45,
+                "volleyball" : 5
               }
             }
           },
-          "operation": "insertIfEmpty"
+          "operation": "insert_if_empty"
         }
       ]
     },
@@ -136,7 +135,7 @@
       "debug" : "False",
       "format": "String",
       "strategy": {
-        "isUnique": "False",
+        "is_unique": "False",
         "name": "RANDOM_NUMBER_RANGE_STRATEGY",
         "params": {
           "range" : {
@@ -151,11 +150,11 @@
       "names": [
         "NAME"
       ],
-      "disable" : "True",
+      "disable" : "False",
       "debug" : "False",
       "format": "String",
       "strategy": {
-        "isUnique": "False",
+        "is_unique": "False",
         "name": "RANDOM_NAME_STRATEGY"
       },
       "operation": "insert"
@@ -164,11 +163,11 @@
       "names": [
         "SSN"
       ],
-      "disable" : "True",
+      "disable" : "False",
       "debug" : "False",
       "format": "String",
       "strategy": {
-        "isUnique": "False",
+        "is_unique": "False",
         "name": "REGEX_STRATEGY",
         "params": {
           "regex": "[A-Za-z0-9]{20}"
@@ -178,18 +177,35 @@
     },
     {
       "names": [
-        "AGE"
+        "FAVOURITE SPORT"
       ],
-      "disable" : "True",
+      "disable" : "False",
       "debug" : "False",
       "format": "String",
       "operation" : "insert",
       "strategy": {
-        "isUnique": "False",
+        "is_unique": "False",
         "name": "REPLACEMENT_STRATEGY",
         "params": {
-          "from_value" : 70,
-          "to_value": 90 
+          "from_value" : "volleyball",
+          "to_value": "NULL" 
+        }
+      } 
+    },
+    {
+      "names": [
+        "ID"
+      ],
+      "disable" : "False",
+      "debug" : "False",
+      "format": "String",
+      "operation" : "insert",
+      "strategy": {
+        "is_unique": "False",
+        "name": "SERIES_STRATEGY",
+        "params": {
+          "start" : 10,
+          "end": 90
         }
       } 
     }

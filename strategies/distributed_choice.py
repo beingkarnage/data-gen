@@ -17,13 +17,14 @@ def distributed_choice_strategy(**kwargs):
         df (pandas.DataFrame): updted dataframe.
     """     
     df = kwargs.get('df')
-    colName = kwargs.get('colName')
+    colName = kwargs.get('col_name')
     null_mask = kwargs.get('mask',False) & df[colName].isnull()
 
     if sum(kwargs.get('params').get('choices').values())==100:
         choices_with_dist = {}
         choices = []
-        for key in kwargs.get('params').get('choices'):
+        params = kwargs.get('params')
+        for key in params.get('choices'):
             choices_with_dist[key] = (kwargs.get('params').get('choices')[key]/100)
             choices.append(key)
         already_present = df.value_counts().to_dict()
@@ -33,7 +34,7 @@ def distributed_choice_strategy(**kwargs):
 
     else :
         print("Error : Invalid distribution given, distributions sum should be equal to 100, but got {}".format(sum(params['choices'].values())))
-    if kwargs.get('operation') == "insertIfEmpty" :
+    if kwargs.get('operation') == "insert_if_empty" :
         newGenerated = np.random.choice(choices, size=null_mask.sum(), p=list(choices_with_dist.values()))
         df.loc[null_mask, colName] = newGenerated
     elif kwargs.get('operation') == "insert":

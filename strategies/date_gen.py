@@ -17,17 +17,17 @@ def date_generator_strategy(**kwargs):
         df : updted dataframe.
     """
     param = {}
-    param['start_date'] = kwargs.get('params').get('startDate')
-    param['end_date'] = kwargs.get('params').get('endDate')
+    param['start_date'] = kwargs.get('params').get('start_date')
+    param['end_date'] = kwargs.get('params').get('end_date')
 
     if "inputFormat" in kwargs.get("params") :
-        param["input_format"] = kwargs.get('params').get('inputFormat')
+        param["input_format"] = kwargs.get('params').get('input_format')
     
     if 'outputFormat' in kwargs.get("params") :
-        param['output_format'] = kwargs.get('params').get('outputFormat')
+        param['output_format'] = kwargs.get('params').get('output_format')
     
     df = kwargs.get('df')
-    colName = kwargs.get('colName')
+    colName = kwargs.get('col_name')
 
     null_mask = kwargs.get('mask', False) & (df[colName].isnull())
     res = []
@@ -36,7 +36,7 @@ def date_generator_strategy(**kwargs):
         for i in range(kwargs.get("rows")): 
             res.append(generate_random_date(**param))
         df[colName] = res
-    elif kwargs.get("operation") == "insertIfEmpty":
+    elif kwargs.get("operation") == "insert_if_Empty":
         for i in range(null_mask.sum()):
             res.append(generate_random_date(**param))
         df.loc[null_mask, colName] = res

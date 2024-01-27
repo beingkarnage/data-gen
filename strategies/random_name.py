@@ -16,7 +16,7 @@ def random_name_strategy(**kwargs):
         df (pandas.DataFrame): updted dataframe.
     """
     df = kwargs.get('df')
-    colName = kwargs.get('colName')
+    colName = kwargs.get('col_name')
     
     if kwargs.get('operation') == "insertIfEmpty":
         null_mask = kwargs.get('mask',False) & df[colName].isnull()

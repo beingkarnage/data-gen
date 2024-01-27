@@ -20,9 +20,9 @@ def series(**kwargs):
         df (pandas.DataFrame): updted dataframe.
     """
     df = kwargs.get('df')
-    colName = kwargs.get('colName')
+    colName = kwargs.get('col_name')
     null_mask = kwargs.get('mask',False) & df[colName].isnull()
-    if kwargs.get('operation') == "insertIfEmpty":
+    if kwargs.get('operation') == "insert_if_empty":
         if null_mask.sum() == 0:
             return df
         df.loc[null_mask, colName] = Series(
@@ -36,7 +36,8 @@ def series(**kwargs):
         df[colName] = Series(
                     arange(
                         kwargs.get('params').get('start', 0),
-                        kwargs.get('rows') + kwargs.get('params').get('start', 0)
+                        kwargs.get('rows') + kwargs.get('params').get('start') * kwargs.get('params').get('step',1) ,
+                        kwargs.get('params').get('step',1)
                     )
                   )
     else :
