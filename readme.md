@@ -2,6 +2,13 @@
 # Data Generator
 Data generator or data-gen, is a tool focused towards generating data, either based a on relation on some other column, or a strategy.
 
+### Getting Started
+**Step 1** : `pip install -r requirements.txt`.
+
+**Step 2** Create a copy of examples/config.json.example to examples/config.json , or create your own config you can refer to examples folder for more info.
+
+**Step 3** Now you are all set to run the script, pass down the config path to the script for example :`python data_generator.py ./examples/config.json`
+
 #### What is a relation or `relation_type` in data-gen
 > relation_type : optional : list
 
@@ -96,10 +103,3 @@ Config examples can be found in the examples/config folder, which involves all t
 - LIST OF RELATIONS : List of relations for a column.
 
 *Rest is selft explainatory*
-
-### Getting Started
-**Step 1** : `pip install -r requirements.txt`.
-
-**Step 2** Create a copy of examples/config.json.example to examples/config.json , or create your own config you can refer to examples folder for more info.
-
-**Step 3** Now you are all set to run the script, pass down the config path to the script for example :`python data_generator.py ./examples/config.json`
