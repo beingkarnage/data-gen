@@ -17,8 +17,8 @@ def distributed_choice_strategy(**kwargs):
         df (pandas.DataFrame): updted dataframe.
     """     
     df = kwargs.get('df')
-    colName = kwargs.get('col_name')
-    null_mask = kwargs.get('mask',False) & df[colName].isnull()
+    col_name = kwargs.get('col_name')
+    null_mask = kwargs.get('mask',False) & df[col_name].isnull()
 
     if sum(kwargs.get('params').get('choices').values())==100:
         choices_with_dist = {}
@@ -35,9 +35,9 @@ def distributed_choice_strategy(**kwargs):
     else :
         print("Error : Invalid distribution given, distributions sum should be equal to 100, but got {}".format(sum(params['choices'].values())))
     if kwargs.get('operation') == "insert_if_empty" :
-        newGenerated = np.random.choice(choices, size=null_mask.sum(), p=list(choices_with_dist.values()))
-        df.loc[null_mask, colName] = newGenerated
+        new_generated = np.random.choice(choices, size=null_mask.sum(), p=list(choices_with_dist.values()))
+        df.loc[null_mask, col_name] = new_generated
     elif kwargs.get('operation') == "insert":
-        newGenerated = np.random.choice(choices, size=kwargs.get('rows'), p=list(choices_with_dist.values()))
-        df[colName] = newGenerated
+        new_generated = np.random.choice(choices, size=kwargs.get('rows'), p=list(choices_with_dist.values()))
+        df[col_name] = new_generated
     return df
