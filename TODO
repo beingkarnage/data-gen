@@ -1,5 +1,10 @@
-1. tweak config params
-    a. "operation": "insertIfEmpty"
+### Code Quality
+1. Add ignore case, while comparing static strings, i.e. configs ?
+2. replace if-else with neccesary try catches.
+3. write unit tests.
+4. fix regex strategy, null_mask not used, remove map_to_null
+5. tweak config params
+    a. "operation": "insert_if_empty"
         "filter": {
             "lhs" : ["customerType"],
             "rhs" : ["Individuals"],
@@ -10,37 +15,40 @@
         both of them having same operation but different meaning and purpose fix that,(0/100)
     b. add shuffle/ random flag in config.
 
-2. the filter obj, could be confusing, convert it to sql query, try duckDB
-    -- try using "in" when to check for one to with multiple values
-3. replace if-else with neccesary try catches, (0/100)
-4. add more strategies (100/100)
-    deletion strategy
-    replacement strategy
-    series/range strategy
-5. add more complex relation support ? (0/100)
-    --fix relation : support for multiple dtype coomparision, you just have int now
-6. maybe if possible think about pre data clean up ? (0/100)
-7. explore data generation via, ML libraries.(0/100)
-8. add ignore case, while comparing static strings ⬆️(0/100)
-9. Out of memory issue, for e.g. multiplying large values in strategy, relations 
-    -- heavy memory footprint when generating large number of rows
-10. multiple table mapping
-    -- Mapping strategy/relation to map one columns to another(0/100)
-11. Modularize the script, supply functions defination via, external config (100/100)
-12. Code quality:
-    remove "strategies/number_range.py", strategy prefix from all of the STRATEGIES.json, as it is already obvious to look into strategies folder.
 
-13. Write unit tests.
-14. fix regex strategy, null_mask not used, remove map_to_null
-15. config validator, do checks for, null/bad/negative/wrong values
-16. optimize unique id generator, fails badly when need to generate large number of uuids,
+### Feature List
+1. more Robust Relation support, Only supporting string and ints for now, what about dates, floats, etc/
+2. maybe if possible think about pre data clean up ?
+3. intermediate columns which helps in generation of other columns but not involved in final result
+4. multiple table mapping
+    -- Mapping strategy/relation to map one columns to another(0/100)
+
+### Optimzations
+1. try using "in" when to check for one to with multiple values
+2. out of memory issue, for e.g. arithmatic operation support large values in strategy, relations 
+    -- heavy memory footprint when generating large number of rows
+3. process dependent and independent columns separately, save the independent columns one by one, do not pass the whole df every where, then save the dependent columns one by one, only load those columns which the dependent column wants
+4. optimize unique id generator, fails badly when need to generate large number of uuids,
     --example
         1. this big number, maintaining a set could be pain,
             92840183984919939494 
         2. an id with constant prefix or suffix or both
             HHSF88349S9358898985   
-            HHSF88349S93588IIIFD
         3. id with random prefix or suffix or both.
+            HHSF88349S93588IIIFD
+5. write some performance script which measures the time consumed by which column and then tweak the optimizations accordingly
 
+### Data-Gen & beyond
+1. explore data generation via, ML libraries.
+2. the filter obj, could be confusing, convert it to sql query, try duckDB <---pk suggested--->
+3. config validator, do checks for, null/bad/negative/wrong value
+4. Nested relationships, a relation inside a relation, think about this 
 
-17. intermediate columns which helps in generation of other columns but not involved in final result
+### Logic Fix or Testing
+1. test insert and insert_if_empty with or without mask present, verify this for all strategies
+
+### Study this
+1. when you create big list inside a function, do they gets deleted after the funciton excutes ?
+2. garbage collection in python
+3. is vs ==
+
