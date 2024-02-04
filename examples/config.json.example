@@ -5,31 +5,33 @@
     "FAVOURITE SPORT",
     "PHONE NUMBER",
     "NAME",
-    "SSN","ID"
+    "SSN",
+    "ID",
+    "DOBAGE"
   ],
   "file_writer": [
     {
-      "type" : "csv",
-      "params" : {
+      "type": "csv",
+      "params": {
         "path_or_buf": "output.csv"
       }
     }
   ],
-  "num_of_rows": 50,
+  "num_of_rows": 100,
   "configs": [
     {
       "names": [
         "DOB"
       ],
-      "disable" : "False",
-      "debug" : "False",
+      "disable": "False",
+      "debug": "False",
       "format": "String",
       "strategy": {
         "is_unique": "False",
         "name": "DATE_GENERATOR_STRATEGY",
         "params": {
-          "start_date" : "1970-10-20",
-          "end_date" : "2000-01-31"
+          "start_date": "1970-10-20",
+          "end_date": "2000-01-31"
         }
       },
       "operation": "insert"
@@ -38,28 +40,28 @@
       "names": [
         "AGE"
       ],
-      "disable" : "False",
-      "debug" : "False",
+      "disable": "False",
+      "debug": "False",
       "format": "String",
       "strategy": {
         "is_unique": "False",
         "name": "DISTRIBUTED_NUMBER_RANGE_STRATEGY",
         "params": {
-          "ranges" : [
+          "ranges": [
             {
-              "lowerbound" : 5,
-              "upperbound" : 25,
-              "distribution" : 60
+              "lowerbound": 5,
+              "upperbound": 25,
+              "distribution": 60
             },
             {
-              "lowerbound" : 26,
-              "upperbound" : 70,
-              "distribution" : 30
+              "lowerbound": 26,
+              "upperbound": 70,
+              "distribution": 30
             },
             {
-              "lowerbound" : 70,
-              "upperbound" : 120,
-              "distribution" : 10
+              "lowerbound": 70,
+              "upperbound": 120,
+              "distribution": 10
             }
           ]
         }
@@ -70,8 +72,8 @@
       "names": [
         "FAVOURITE SPORT"
       ],
-      "disable" : "False",
-      "debug" : "False",
+      "disable": "False",
+      "debug": "False",
       "format": "String",
       "relation_type": [
         {
@@ -85,15 +87,14 @@
             "operation": [
               ">"
             ],
-            "boolean": [
-            ]
+            "boolean": []
           },
           "strategy": {
             "is_unique": "False",
             "name": "DISTRIBUTED_CHOICES_STRATEGY",
             "params": {
               "choices": {
-                "golf" : 100
+                "golf": 100
               }
             }
           },
@@ -110,17 +111,16 @@
             "operation": [
               "<"
             ],
-            "boolean": [
-            ]
+            "boolean": []
           },
           "strategy": {
             "is_unique": "False",
             "name": "DISTRIBUTED_CHOICES_STRATEGY",
             "params": {
               "choices": {
-                "cricket" : 50,
+                "cricket": 50,
                 "soccer": 45,
-                "volleyball" : 5
+                "volleyball": 5
               }
             }
           },
@@ -132,15 +132,15 @@
       "names": [
         "PHONE NUMBER"
       ],
-      "debug" : "False",
+      "debug": "False",
       "format": "String",
       "strategy": {
         "is_unique": "False",
         "name": "RANDOM_NUMBER_RANGE_STRATEGY",
         "params": {
-          "range" : {
-            "upperbound" : 9999999999,
-            "lowerbound" : 9000000000
+          "range": {
+            "upperbound": 9999999999,
+            "lowerbound": 9000000000
           }
         }
       },
@@ -150,8 +150,8 @@
       "names": [
         "NAME"
       ],
-      "disable" : "False",
-      "debug" : "False",
+      "disable": "False",
+      "debug": "False",
       "format": "String",
       "strategy": {
         "is_unique": "False",
@@ -163,8 +163,8 @@
       "names": [
         "SSN"
       ],
-      "disable" : "False",
-      "debug" : "False",
+      "disable": "False",
+      "debug": "False",
       "format": "String",
       "strategy": {
         "is_unique": "False",
@@ -179,35 +179,81 @@
       "names": [
         "FAVOURITE SPORT"
       ],
-      "disable" : "False",
-      "debug" : "False",
+      "disable": "False",
+      "debug": "False",
       "format": "String",
-      "operation" : "insert",
+      "operation": "insert",
       "strategy": {
         "is_unique": "False",
         "name": "REPLACEMENT_STRATEGY",
         "params": {
-          "from_value" : "volleyball",
-          "to_value": "NULL" 
+          "from_value": "volleyball",
+          "to_value": "NULL"
         }
-      } 
+      }
     },
     {
       "names": [
         "ID"
       ],
-      "disable" : "False",
-      "debug" : "False",
+      "disable": "False",
+      "debug": "False",
       "format": "String",
-      "operation" : "insert",
+      "operation": "insert",
       "strategy": {
         "is_unique": "False",
         "name": "SERIES_STRATEGY",
         "params": {
-          "start" : 10,
+          "start": 10,
           "end": 90
         }
-      } 
+      }
+    },
+    {
+      "names": [
+        "DOBAGE"
+      ],
+      "disable": "False",
+      "debug": "False",
+      "format": "String",
+      "operation": "insert",
+      "relation_type": [
+        {
+          "filter": {
+            "lhs": [
+              "AGE"
+            ],
+            "rhs": [
+              70
+            ],
+            "operation": [
+              ">"
+            ],
+            "boolean": []
+          },
+          "strategy": {
+            "is_unique": "False",
+            "name": "CONCAT_STRATEGY",
+            "params": {
+              "lhs_cols": [
+                "DOB"
+              ],
+              "rhs_cols": [
+                "AGE"
+              ],
+              "lhs":{
+                "prefix" : "prefix1",
+                "suffix" : "suffix1"
+              },
+              "rhs":{
+                "prefix" : "prefix2",
+                "suffix" : "suffix2"
+              }
+            }
+          },
+          "operation": "insert"
+        }
+      ]
     }
   ]
 }

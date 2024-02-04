@@ -9,5 +9,6 @@
     "TIME_RANGE_STRATEGY" : "time_range_strategy",
     "REPLACEMENT_STRATEGY" : "replacement",
     "SERIES_STRATEGY" : "series",
-    "DISTRIBUTED_DATE_STRATEGY" : "distributed_date"
+    "DISTRIBUTED_DATE_STRATEGY" : "distributed_date",
+    "CONCAT_STRATEGY" : "concat"
 }

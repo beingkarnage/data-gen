@@ -9,5 +9,6 @@
     "TIME_RANGE_STRATEGY" : "strategies/time_range.py",
     "REPLACEMENT_STRATEGY" : "strategies/replacement.py",
     "SERIES_STRATEGY" : "strategies/series_strategy.py",
-    "DISTRIBUTED_DATE_STRATEGY" : "strategies/distributed_date.py"
+    "DISTRIBUTED_DATE_STRATEGY" : "strategies/distributed_date.py",
+    "CONCAT_STRATEGY" : "strategies/concat.py"
 }
