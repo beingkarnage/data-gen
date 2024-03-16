@@ -21,7 +21,9 @@
 2. maybe if possible think about pre data clean up ?
 3. intermediate columns which helps in generation of other columns but not involved in final result
 4. multiple table mapping
-    -- Mapping strategy/relation to map one columns to another(0/100)
+    -- Mapping strategy/relation to map one columns to another or generate first then map it, (0/100)
+5. convert `relations` to `constraints` 
+6. `constraints` can be a multi table mapping, relations, or another way.
 
 ### Optimzations
 1. try using "in" when to check for one to with multiple values
@@ -46,6 +48,8 @@
 
 ### Logic Fix or Testing
 1. test insert and insert_if_empty with or without mask present, verify this for all strategies
+2. Better coupling of relation conditions, right now i am doing, A & B | C, and will be performed by the order they are present, first (A & B) | C, but what if user wants to 
+A & ( B | C )
 
 ### Study this
 1. when you create big list inside a function, do they gets deleted after the funciton excutes ?

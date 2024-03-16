@@ -15,6 +15,6 @@ def replacement(**kwargs):
     """
     df = kwargs.get('df')
     colName = kwargs.get('col_name')
-
+    mask = kwargs.get('mask',True)
     df[colName] = df[colName].replace(kwargs.get('params').get('from_value'), kwargs.get('params').get('to_value'))
     return df

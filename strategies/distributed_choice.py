@@ -33,7 +33,7 @@ def distributed_choice_strategy(**kwargs):
                 choices_with_dist[i] -= already_present[i]
 
     else :
-        print("Error : Invalid distribution given, distributions sum should be equal to 100, but got {}".format(sum(params['choices'].values())))
+        print("Error : Invalid distribution given, distributions sum should be equal to 100, but got {}".format(sum(kwargs.get('params').get('choices').values())))
     if kwargs.get('operation') == "insert_if_empty" :
         new_generated = np.random.choice(choices, size=null_mask.sum(), p=list(choices_with_dist.values()))
         df.loc[null_mask, col_name] = new_generated
